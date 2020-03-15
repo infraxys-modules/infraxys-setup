@@ -1,0 +1,202 @@
+{
+  "version": "1.0",
+  "description": "Infraxys Server role",
+  "name": "infraxys-server",
+  "group": "",
+  "requiredPackets": [
+    {
+      "packetKey": "INFRAXYS-SERVER-CONFIG"
+    }
+  ],
+  "instances": [
+    {
+      "guid": "240d5d53-9737-4d23-8ce7-9b6fb16c11d2",
+      "packetGuid": "github.com\\infraxys-modules\\terraform\\master\\terraform aws runner",
+      "velocityName": "",
+      "instanceGroups": "",
+      "aws_provider_version": "2.49.0",
+      "aws_region": "$container.getAttribute(\"aws_core_region\")",
+      "extra_terraform": "",
+      "instance_label": "Infraxys - Terraform",
+      "skip_terraform_action_creation": "1",
+      "state_velocity_names": "terraformVpcState",
+      "instances": [
+        {
+          "guid": "79518772-08e2-405b-b433-f992bc895760",
+          "packetGuid": "github.com\\infraxys-modules\\terraform\\master\\terraform s3 remote state",
+          "velocityName": "",
+          "instanceGroups": "",
+          "state_aws_region": "$container.getAttribute(\"aws_core_region\")",
+          "state_encrypt_file": "1",
+          "state_key": "$container.getAttribute(\"aws_core_s3_state_folder\")/${container.name}.tfstate",
+          "state_name": "$container.name",
+          "state_s3_bucket": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
+        },
+        {
+          "guid": "9688fd05-348d-4952-bc4d-2bbba90fbc01",
+          "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\application load balancer",
+          "velocityName": "infraxysAlb",
+          "instanceGroups": "",
+          "alb_hostname": "${container.name}-ext-alb",
+          "enable_deletion_protection": "0",
+          "load_balancer_attach_instance_vn": "infraxysInstance",
+          "load_balancer_certificate_arn": "$container.getAttribute(\"infraxys_ssl_certificate_arn\")",
+          "load_balancer_name": "${container.name}-ext-alb",
+          "load_balancer_security_group_ids": "[aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id]",
+          "load_balancer_subnets": "data.terraform_remote_state.vpc.outputs.public_subnets",
+          "tags": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-ext-alb\")",
+          "instances": [
+            {
+              "guid": "2c25f1f5-7620-4dd0-8a24-aefeb7de6d86",
+              "packetGuid": "github.com\\infraxys-aws\\aws-route53\\master\\terraform route53 a alias record",
+              "velocityName": "adminDnsRecord",
+              "instanceGroups": "",
+              "evaluate_target_health": "1",
+              "instance_label": "Infraxys Admin ALB record",
+              "route53_name": "$container.getAttribute(\"infraxys_dns_name\")-admin",
+              "route53_zone_id": "$container.getAttribute(\"infraxys_route53_zone_id\")",
+              "target_name": "aws_lb.${instance.parent.getAttribute(\"load_balancer_name\")}.dns_name",
+              "target_zone_id": "aws_lb.${instance.parent.getAttribute(\"load_balancer_name\")}.zone_id"
+            },
+            {
+              "guid": "584f22ea-d23a-476d-bedc-254796544d49",
+              "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\alb target group",
+              "velocityName": "",
+              "instanceGroups": "",
+              "target_group_hcl": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n#set ($inVpcConfig \u003d $instance.getParentInstanceByPacketType(\"AWS_VPC\"))\n#set ($ec2Instance \u003d $instance.getInstanceByAttributeVelocityName(\"load_balancer_attach_instance_vn\"))\n#if ($inVpcConfig)\n  #set ($vpcId \u003d \"module.vpc.outputs.vpc_id\")\n#else\n  #set ($vpcId \u003d \"data.terraform_remote_state.vpc.outputs.vpc_id\")\n#end\n\nresource \"aws_alb_target_group\" \"alb_target_group\" {\n  name     \u003d \"${loadBalancerName}-tg\"\n  port     \u003d \"8443\"\n  protocol \u003d \"HTTPS\"\n  vpc_id \u003d $vpcId\n\n    tags \u003d {\n$instance.getAttribute(\"tags\")\n    }\n\n  stickiness {\n    type            \u003d \"lb_cookie\"\n    cookie_duration \u003d 1800\n    enabled         \u003d \"true\"\n  }\n  health_check {\n    healthy_threshold   \u003d 3\n    unhealthy_threshold \u003d 10\n    timeout             \u003d 5\n    interval            \u003d 10\n    path                \u003d \"/index.jsp\"\n    port                \u003d \"8082\"\n    matcher             \u003d \"302\"\n  }\n}\n\nresource \"aws_alb_target_group_attachment\" \"alb_target_group_att\" {\n  target_group_arn \u003d aws_alb_target_group.alb_target_group.arn\n  target_id        \u003d aws_instance.${ec2Instance.getAttribute(\"instance_name\")}.id\n  port             \u003d 8443\n}",
+              "target_group_name": "infraxys-tg",
+              "instances": [
+                {
+                  "guid": "01b397c9-67c9-4b6f-86ee-fef53fbeb20f",
+                  "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\alb listener config",
+                  "velocityName": "",
+                  "instanceGroups": "",
+                  "listener_config_hcl": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n\nresource \"aws_alb_listener\" \"alb_listener\" {\n  load_balancer_arn \u003d aws_lb.${loadBalancerName}.arn\n  port              \u003d \"80\"\n  protocol          \u003d \"HTTP\"\n\n  default_action {\n    type \u003d \"redirect\"\n    redirect {\n      port \u003d \"443\"\n      protocol \u003d \"HTTPS\"\n      status_code \u003d \"HTTP_301\"\n    }\n  }\n}\n\nresource \"aws_alb_listener_rule\" \"listener_rule\" {\n  depends_on   \u003d [aws_alb_target_group.alb_target_group]\n  listener_arn \u003d aws_alb_listener.alb_listener.arn\n  priority     \u003d \"100\"\n  condition {\n    path_pattern {\n      values \u003d [\"*\"]\n    }\n  }\n  action {\n    type             \u003d \"forward\"\n    target_group_arn \u003d aws_alb_target_group.alb_target_group.id\n  }\n}",
+                  "listener_name": "http redirect"
+                },
+                {
+                  "guid": "be42cc2e-2f98-4051-8160-009863769654",
+                  "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\alb listener config",
+                  "velocityName": "",
+                  "instanceGroups": "",
+                  "listener_config_hcl": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n\nresource \"aws_alb_listener\" \"alb_https_listener\" {\n  load_balancer_arn \u003d aws_lb.${loadBalancerName}.arn\n  port              \u003d \"443\"\n  protocol          \u003d \"HTTPS\"\n\n  ssl_policy        \u003d \"ELBSecurityPolicy-2016-08\"\n  certificate_arn   \u003d \"$instance.getAttribute(\"load_balancer_certificate_arn\")\"\n\n  default_action {\n    target_group_arn \u003d aws_alb_target_group.alb_target_group.arn\n    type             \u003d \"forward\"\n  }\n}",
+                  "listener_name": "application"
+                }
+              ]
+            },
+            {
+              "guid": "3759cb16-1466-46e8-9ce6-b742f903bb55",
+              "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\alb target group",
+              "velocityName": "",
+              "instanceGroups": "",
+              "target_group_hcl": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n#set ($inVpcConfig \u003d $instance.getParentInstanceByPacketType(\"AWS_VPC\"))\n#set ($ec2Instance \u003d $instance.getInstanceByAttributeVelocityName(\"load_balancer_attach_instance_vn\"))\n#if ($inVpcConfig)\n  #set ($vpcId \u003d \"module.vpc.outputs.vpc_id\")\n#else\n  #set ($vpcId \u003d \"data.terraform_remote_state.vpc.outputs.vpc_id\")\n#end\n\nresource \"aws_alb_target_group\" \"alb_tg_admin\" {\n  name     \u003d \"${loadBalancerName}-admin-tg\"\n  port     \u003d \"8082\"\n  protocol \u003d \"HTTP\"\n  vpc_id \u003d $vpcId\n\n    tags \u003d {\n$instance.getAttribute(\"tags\")\n    }\n\n  stickiness {\n    type            \u003d \"lb_cookie\"\n    cookie_duration \u003d 1800\n    enabled         \u003d \"true\"\n  }\n  health_check {\n    healthy_threshold   \u003d 3\n    unhealthy_threshold \u003d 10\n    timeout             \u003d 5\n    interval            \u003d 10\n    path                \u003d \"/healthcheck\"\n    port                \u003d \"8082\"\n    matcher             \u003d \"200\"\n  }\n}",
+              "target_group_name": "admin-tg",
+              "instances": [
+                {
+                  "guid": "281ddc1f-1a82-4972-adff-674b699af705",
+                  "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\alb listener config",
+                  "velocityName": "",
+                  "instanceGroups": "",
+                  "listener_config_hcl": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n#set ($ec2Instance \u003d $instance.getInstanceByAttributeVelocityName(\"load_balancer_attach_instance_vn\"))\n\nresource \"aws_alb_listener_rule\" \"listener_rule_admin\" {\n  depends_on   \u003d [\"aws_alb_target_group.alb_tg_admin\"]\n  listener_arn \u003d aws_alb_listener.alb_https_listener.arn\n  priority     \u003d \"100\"\n  condition {\n\n     host_header {\n        values \u003d [\"${adminDnsRecord.getAttribute(\"route53_name\")}.*\"]\n    }\n  }\n  action {\n    type             \u003d \"forward\"\n    target_group_arn \u003d aws_alb_target_group.alb_tg_admin.id\n  }\n}\n\nresource \"aws_alb_target_group_attachment\" \"alb_tg_att_admin\" {\n  target_group_arn \u003d aws_alb_target_group.alb_tg_admin.arn\n  target_id        \u003d aws_instance.${ec2Instance.getAttribute(\"instance_name\")}.id\n  port             \u003d 8082\n}",
+                  "listener_name": "admin"
+                }
+              ]
+            },
+            {
+              "guid": "40c860ba-50ae-4308-b0c7-e729fa2e32a3",
+              "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\security group",
+              "velocityName": "infraxysExtElbSg",
+              "instanceGroups": "",
+              "description": "Security group for the external load balancer of Infraxys",
+              "egress_rules": "#outbound internet access\negress {\n    from_port   \u003d 0\n    to_port     \u003d 0\n    protocol    \u003d \"-1\"\n    cidr_blocks \u003d [\"0.0.0.0/0\"]\n}",
+              "ingress_rules": "ingress {\n    from_port   \u003d 443\n    to_port     \u003d 443\n    protocol    \u003d \"tcp\"\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_app_cidr_blocks\")\n    ]\n}\ningress {\n    from_port   \u003d 80\n    to_port     \u003d 80\n    protocol    \u003d \"tcp\"\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_app_cidr_blocks\")\n    ]\n}\ningress {\n    from_port   \u003d 8443\n    to_port     \u003d 8443\n    protocol    \u003d \"tcp\"\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_app_cidr_blocks\")\n    ]\n}",
+              "security_group_name": "${container.name}-infraxys-ext-alb-sg",
+              "tags": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-ext-alb-sg\")"
+            },
+            {
+              "guid": "c89bbc58-92cb-40df-9170-8bb2d2cb92da",
+              "packetGuid": "github.com\\infraxys-aws\\aws-route53\\master\\terraform route53 a alias record",
+              "velocityName": "",
+              "instanceGroups": "",
+              "evaluate_target_health": "1",
+              "instance_label": "Infraxys ALB record",
+              "route53_name": "$container.getAttribute(\"infraxys_dns_name\")",
+              "route53_zone_id": "$container.getAttribute(\"infraxys_route53_zone_id\")",
+              "target_name": "aws_lb.${instance.parent.getAttribute(\"load_balancer_name\")}.dns_name",
+              "target_zone_id": "aws_lb.${instance.parent.getAttribute(\"load_balancer_name\")}.zone_id"
+            },
+            {
+              "guid": "2dbd1d23-6b90-4218-a52a-eb083c335dbc",
+              "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\ec2 instance",
+              "velocityName": "infraxysInstance",
+              "instanceGroups": "",
+              "instance_ami": "infraxys/images/infraxys-1.4-server-",
+              "instance_name": "${container.name}-infraxys",
+              "instance_subnet_id": "data.terraform_remote_state.vpc.outputs.private_subnets[0]",
+              "instance_tags": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", ${instance.getAttribute(\"instance_name\")})",
+              "instance_type": "t2.medium",
+              "key_pair_name": "$container.getAttribute(\"infraxys_key_pair_name\")",
+              "prevent_destroy": "0",
+              "private_key_file": "/root/.ssh/keys/${instance.getAttribute(\"key_pair_name\").replaceAll(\"-\", \"_\")}.pem",
+              "root_block_device_del_on_term": "1",
+              "root_block_device_size": "100",
+              "root_block_device_type": "gp2",
+              "ssh_connect_username": "ubuntu",
+              "user_data_script": "#!/bin/bash\n\necho \"Starting Infraxys user-data script.\";\nsudo touch /var/log/user_data.log;\nsudo chown ubuntu /var/log/user_data.log;\ncd /opt/infraxys/user_data;\n./setup.sh 2\u003e\u00261 | tee /var/log/user_data.log;",
+              "vpc_velocity_name": "vpc",
+              "instances": [
+                {
+                  "guid": "bb2b1cf0-8de9-4a4e-99a0-fa1744fdee20",
+                  "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\security group",
+                  "velocityName": "infraxysSg",
+                  "instanceGroups": "",
+                  "description": "Security group for the Infraxys instance",
+                  "egress_rules": "#outbound internet access\negress {\n    from_port   \u003d 0\n    to_port     \u003d 0\n    protocol    \u003d \"-1\"\n    cidr_blocks \u003d [\"0.0.0.0/0\"]\n}",
+                  "ingress_rules": "ingress {\n    security_groups \u003d [data.terraform_remote_state.vpc.outputs.${bastionSg.getAttribute(\"security_group_name\")}_id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 22\n    to_port \u003d 22\n}\ningress {\n    security_groups \u003d [aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 8443\n    to_port \u003d 8443\n}\ningress {\n    security_groups \u003d [aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 8082\n    to_port \u003d 8082\n}\n",
+                  "security_group_name": "${container.name}-infraxys-sg",
+                  "tags": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-sg\")"
+                },
+                {
+                  "guid": "b74f577f-6d6f-4396-a5d2-19e387529dd3",
+                  "packetGuid": "github.com\\infraxys-aws\\aws-iam\\master\\iam role",
+                  "velocityName": "",
+                  "instanceGroups": "",
+                  "description": "Infraxys instance profile role",
+                  "iam_role_name": "${container.name}-infraxys-role",
+                  "use_for_instance_profile": "1",
+                  "instances": [
+                    {
+                      "guid": "e201606a-5c1b-4c9b-be37-65c03387462f",
+                      "packetGuid": "github.com\\infraxys-aws\\aws-iam\\master\\iam policy - aws managed",
+                      "velocityName": "",
+                      "instanceGroups": "",
+                      "policy_name": "ReadOnlyAccess"
+                    },
+                    {
+                      "guid": "52c151cb-65e5-43e8-adcf-01632c688f89",
+                      "packetGuid": "github.com\\infraxys-aws\\aws-iam\\master\\iam policy",
+                      "velocityName": "",
+                      "instanceGroups": "",
+                      "description": "Policy for the Infraxys instance so it can read-write Terraform state",
+                      "policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"s3:ListBucket\"\n            ],\n            \"Resource\": [\n                \"arn:aws:s3:::$container.getAttribute(\"aws_core_s3_state_bucket\")\"\n            ]\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"s3:PutObject\",\n                \"s3:GetObject\",\n                \"s3:DeleteObject\"\n            ],\n            \"Resource\": [\n                \"arn:aws:s3:::$container.getAttribute(\"aws_core_s3_state_bucket\")/*\"\n            ]\n        }\n    ]\n}",
+                      "policy_name": "${container.name}-infraxys-tf-state-policy"
+                    },
+                    {
+                      "guid": "98b73d77-bf43-4efc-a432-1475d1fd19d8",
+                      "packetGuid": "github.com\\infraxys-aws\\aws-iam\\master\\iam policy",
+                      "velocityName": "",
+                      "instanceGroups": "",
+                      "description": "Policy for the Infraxys instance",
+                      "policy": "{\n   \"Version\": \"2012-10-17\",\n   \"Statement\" : [\n      {\n        \"Action\": [\n          \"ec2:StartInstances\",\n          \"ec2:StopInstances\",\n          \"ec2:TerminateInstances\",\n          \"ec2:AttachVolume\",\n          \"ec2:DetachVolume\",\n          \"ec2:DeleteVolume\"\n        ],\n        \"Effect\": \"Allow\",\n        \"Resource\": \"*\"\n      }\n    ]\n}",
+                      "policy_name": "${container.name}-infraxys-policy"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
