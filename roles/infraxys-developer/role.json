@@ -1,100 +1,312 @@
 {
   "version": "1.0",
-  "description": "Infraxys Developer role",
-  "name": "infraxys-developer",
-  "group": "",
-  "requiredPackets": [],
+  "id": "eb9e6578-9f4a-41c0-807f-e8d588554c1d",
   "instances": [
     {
-      "guid": "ee25951d-4e66-438f-9b2e-5d8069a445ac",
-      "packetGuid": "github.com\\infraxys-modules\\terraform\\master\\terraform aws runner",
+      "id": "ee25951d-4e66-438f-9b2e-5d8069a445ac",
+      "packetId": "c11f5f24-b10c-489a-8ca2-a953b2acfc63",
+      "packetName": "Terraform AWS runner",
+      "packetPath": "github.com\\infraxys-modules\\terraform\\master",
       "velocityName": "",
       "instanceGroups": "",
-      "aws_provider_version": "2.49.0",
-      "aws_region": "$container.getAttribute(\"aws_core_region\")",
-      "extra_terraform": "",
-      "instance_label": "Infraxys - Terraform",
-      "skip_terraform_action_creation": "1",
-      "state_velocity_names": "terraformVpcState",
+      "attributes": [
+        {
+          "id": "13ac5f10-a272-42fa-9da3-b5aab7b21c9a",
+          "name": "aws_provider_version",
+          "value": "2.49.0"
+        },
+        {
+          "id": "5d847331-e33c-4c11-888d-115564d96d22",
+          "name": "aws_region",
+          "value": "$container.getAttribute(\"aws_core_region\")"
+        },
+        {
+          "id": "7f34b229-aacb-4532-89e5-e104fead83b2",
+          "name": "extra_terraform",
+          "value": ""
+        },
+        {
+          "id": "7ee45dcf-ee9b-433c-b046-5ac178df1804",
+          "name": "instance_label",
+          "value": "Infraxys - Terraform"
+        },
+        {
+          "id": "3bf254f1-3235-4471-ac8a-d11a0a691a34",
+          "name": "skip_terraform_action_creation",
+          "value": "1"
+        },
+        {
+          "id": "4d1e521e-5567-4295-b2ca-90be5f492016",
+          "name": "state_velocity_names",
+          "value": "terraformVpcState"
+        },
+        {
+          "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
+          "name": "terraform_version",
+          "value": "0.12.12"
+        }
+      ],
       "instances": [
         {
-          "guid": "9f5e07e1-4861-4a4a-a198-390e818719c1",
-          "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\ec2 instance",
+          "id": "9f5e07e1-4861-4a4a-a198-390e818719c1",
+          "packetId": "1da305b2-7075-4ed9-a82a-229a03f8799e",
+          "packetName": "EC2 Instance",
+          "packetPath": "github.com\\infraxys-aws\\aws-ec2\\master",
           "velocityName": "infraxysDeveloperInstance",
           "instanceGroups": "",
-          "ami_type": "all",
-          "associate_public_ip_address": "1",
-          "instance_ami": "infraxys/images/infraxys-1.4-developer",
-          "instance_name": "${container.name}-infraxys",
-          "instance_subnet_id": "data.terraform_remote_state.vpc.outputs.public_subnets[0]",
-          "instance_tags": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", ${instance.getAttribute(\"instance_name\")}).trim(),\n  infraxys-username \u003d \"$container.getAttribute(\"infraxys_developer_username\")\",\n  infraxys-fullname \u003d \"$container.getAttribute(\"infraxys_developer_fullname\")\"\n  ",
-          "instance_type": "m5.large",
-          "key_pair_name": "$container.getAttribute(\"infraxys_key_pair_name\")",
-          "prevent_destroy": "0",
-          "private_key_file": "/root/.ssh/keys/${instance.getAttribute(\"key_pair_name\").replaceAll(\"-\", \"_\")}.pem",
-          "root_block_device_del_on_term": "1",
-          "root_block_device_size": "100",
-          "root_block_device_type": "gp2",
-          "ssh_connect_username": "ubuntu",
-          "user_data_script": "#!/bin/bash\n\nINSTANCE_ID\u003d\"$(curl -s http://instance-data/latest/meta-data/instance-id)\";\nAZ\u003d\"$(curl -s http://instance-data/latest/meta-data/placement/availability-zone)\";\nREGION\u003d\"$${AZ::-1}\";\nINFRAXYS_USERNAME\u003d\"$(aws ec2 describe-tags --filters \"Name\u003dresource-id,Values\u003d$INSTANCE_ID\" \"Name\u003dkey,Values\u003dinfraxys-username\" --region $REGION --output\u003dtext | cut -f5)\";\nINFRAXYS_FULLNAME\u003d\"$(aws ec2 describe-tags --filters \"Name\u003dresource-id,Values\u003d$INSTANCE_ID\" \"Name\u003dkey,Values\u003dinfraxys-fullname\" --region $REGION --output\u003dtext | cut -f5)\";\nsed -i \"s/export INFRAXYS_USERNAME\u003d.*/export INFRAXYS_USERNAME\u003d\\\"$INFRAXYS_USERNAME\\\"/g\" /opt/infraxys/bin/variables;\nsed -i \"s/export INFRAXYS_FULLNAME\u003d.*/export INFRAXYS_FULLNAME\u003d\\\"$INFRAXYS_FULLNAME\\\"/g\" /opt/infraxys/bin/variables;\n\ncd /opt/infraxys/bin;\n\n./up.sh;\n\necho \"Retrieving localhost certificate.\";\ndocker cp infraxys-developer-web:/infraxys/certs/localhost.crt .;\n\necho \"Copying the localhost certificate to the ca-certificates directory.\";\nmv localhost.crt /usr/local/share/ca-certificates/infraxys-localhost.crt;\nupdate-ca-certificates;\n\necho -e \"infraxys\\ninfraxys\" | passwd ubuntu\n",
-          "vpc_velocity_name": "vpc",
+          "attributes": [
+            {
+              "id": "aefd5bb2-c68b-4a30-87e9-78bad933dfcb",
+              "name": "associate_public_ip_address",
+              "value": "1"
+            },
+            {
+              "id": "4b190392-aaf2-4578-b4fd-2a9cb96af6f8",
+              "name": "image_id",
+              "value": "infraxys/images/infraxys-1.4-developer"
+            },
+            {
+              "id": "5c1ee9bc-89da-4aa8-9582-7ac4912df968",
+              "name": "image_owners",
+              "value": "amazon"
+            },
+            {
+              "id": "293cf5fd-18ee-483b-9fff-d8ba4601a9ad",
+              "name": "instance_name",
+              "value": "${container.name}-infraxys"
+            },
+            {
+              "id": "a2cfc90d-d88e-4596-aff7-173e6f488424",
+              "name": "instance_subnet_id",
+              "value": "data.terraform_remote_state.vpc.outputs.public_subnets[0]"
+            },
+            {
+              "id": "03b485bd-d44c-40b0-b66f-a41f7e50547f",
+              "name": "instance_tags",
+              "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", ${instance.getAttribute(\"instance_name\")}).trim(),\n  infraxys-username \u003d \"$container.getAttribute(\"infraxys_developer_username\")\",\n  infraxys-fullname \u003d \"$container.getAttribute(\"infraxys_developer_fullname\")\"\n  "
+            },
+            {
+              "id": "ba6bc063-e2dd-438c-ace6-12cad2df72bc",
+              "name": "instance_type",
+              "value": "m5.large"
+            },
+            {
+              "id": "177d61b4-ece8-42a5-963e-17f9a38e7e83",
+              "name": "key_pair_name",
+              "value": "$container.getAttribute(\"infraxys_key_pair_name\")"
+            },
+            {
+              "id": "e08b69ec-3c70-4c42-91a7-7e5a9837f96b",
+              "name": "prevent_destroy",
+              "value": "0"
+            },
+            {
+              "id": "a41a4b3c-6322-4ce9-b047-75fd39e0b39e",
+              "name": "private_key_file",
+              "value": "/root/.ssh/keys/${instance.getAttribute(\"key_pair_name\").replaceAll(\"-\", \"_\")}.pem"
+            },
+            {
+              "id": "88c4470e-9c57-418d-b4f6-a3f2c8e785f1",
+              "name": "root_block_device_del_on_term",
+              "value": "1"
+            },
+            {
+              "id": "74a4fe81-f42b-4fb0-b848-48f9dcff1d31",
+              "name": "root_block_device_size",
+              "value": "100"
+            },
+            {
+              "id": "0cbfa7d1-2f04-4302-a268-32e416f34e43",
+              "name": "root_block_device_type",
+              "value": "gp2"
+            },
+            {
+              "id": "21cc4e98-2cb7-4efd-a16b-822d8412fd84",
+              "name": "ssh_connect_username",
+              "value": "ubuntu"
+            },
+            {
+              "id": "a0a8eb3b-e34f-4f11-bc12-77d06a13fee1",
+              "name": "user_data_script",
+              "value": "#!/bin/bash\n\nINSTANCE_ID\u003d\"$(curl -s http://instance-data/latest/meta-data/instance-id)\";\nAZ\u003d\"$(curl -s http://instance-data/latest/meta-data/placement/availability-zone)\";\nREGION\u003d\"$${AZ::-1}\";\nINFRAXYS_USERNAME\u003d\"$(aws ec2 describe-tags --filters \"Name\u003dresource-id,Values\u003d$INSTANCE_ID\" \"Name\u003dkey,Values\u003dinfraxys-username\" --region $REGION --output\u003dtext | cut -f5)\";\nINFRAXYS_FULLNAME\u003d\"$(aws ec2 describe-tags --filters \"Name\u003dresource-id,Values\u003d$INSTANCE_ID\" \"Name\u003dkey,Values\u003dinfraxys-fullname\" --region $REGION --output\u003dtext | cut -f5)\";\nsed -i \"s/export INFRAXYS_USERNAME\u003d.*/export INFRAXYS_USERNAME\u003d\\\"$INFRAXYS_USERNAME\\\"/g\" /opt/infraxys/bin/variables;\nsed -i \"s/export INFRAXYS_FULLNAME\u003d.*/export INFRAXYS_FULLNAME\u003d\\\"$INFRAXYS_FULLNAME\\\"/g\" /opt/infraxys/bin/variables;\n\ncd /opt/infraxys/bin;\n\n./up.sh;\n\necho \"Retrieving localhost certificate.\";\ndocker cp infraxys-developer-web:/infraxys/certs/localhost.crt .;\n\necho \"Copying the localhost certificate to the ca-certificates directory.\";\nmv localhost.crt /usr/local/share/ca-certificates/infraxys-localhost.crt;\nupdate-ca-certificates;\n\necho -e \"infraxys\\ninfraxys\" | passwd ubuntu\n"
+            },
+            {
+              "id": "eb56a14b-d02a-4c3b-b1e3-fe670955b39e",
+              "name": "vpc_velocity_name",
+              "value": "vpc"
+            }
+          ],
           "instances": [
             {
-              "guid": "6a506ae3-94da-4a7a-8706-7613c0677209",
-              "packetGuid": "github.com\\infraxys-aws\\aws-ec2\\master\\security group",
+              "id": "6a506ae3-94da-4a7a-8706-7613c0677209",
+              "packetId": "07aaa698-bd1c-453f-aad1-eecec4321432",
+              "packetName": "Security group",
+              "packetPath": "github.com\\infraxys-aws\\aws-ec2\\master",
               "velocityName": "infraxysDeveloperExtElbSg",
               "instanceGroups": "",
-              "description": "Security group for public Infraxys Developer instance",
-              "egress_rules": "#outbound internet access\negress {\n    from_port   \u003d 0\n    to_port     \u003d 0\n    protocol    \u003d \"-1\"\n    cidr_blocks \u003d [\"0.0.0.0/0\"]\n}",
-              "ingress_rules": "ingress {\n    from_port   \u003d 3389\n    to_port     \u003d 3389\n    protocol    \u003d \"tcp\"\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_app_cidr_blocks\")\n    ]\n}\ningress {\n    security_groups \u003d [data.terraform_remote_state.vpc.outputs.bastion_security_group_id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 22\n    to_port \u003d 22\n}\n",
-              "security_group_name": "${container.name}-infraxys-developer-sg",
-              "tags": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-developer-sg\")",
+              "attributes": [
+                {
+                  "id": "8233fa49-238b-49c0-8135-0f1b2c876878",
+                  "name": "description",
+                  "value": "Security group for public Infraxys Developer instance"
+                },
+                {
+                  "id": "22e4731e-5047-45bf-945f-48e6aea36be0",
+                  "name": "egress_rules",
+                  "value": "#outbound internet access\negress {\n    from_port   \u003d 0\n    to_port     \u003d 0\n    protocol    \u003d \"-1\"\n    cidr_blocks \u003d [\"0.0.0.0/0\"]\n}"
+                },
+                {
+                  "id": "b9e43f2d-442c-42e6-8ec3-e8a7fce2c750",
+                  "name": "extra_terraform",
+                  "value": ""
+                },
+                {
+                  "id": "ba9a9e6a-f638-4e8a-bc7a-2f3d73f77fd8",
+                  "name": "ingress_rules",
+                  "value": "ingress {\n    from_port   \u003d 3389\n    to_port     \u003d 3389\n    protocol    \u003d \"tcp\"\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_app_cidr_blocks\")\n    ]\n}\ningress {\n    security_groups \u003d [data.terraform_remote_state.vpc.outputs.bastion_security_group_id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 22\n    to_port \u003d 22\n}\n"
+                },
+                {
+                  "id": "75be56db-e3e9-4db7-b127-91884a1e4c22",
+                  "name": "security_group_name",
+                  "value": "${container.name}-infraxys-developer-sg"
+                },
+                {
+                  "id": "1e5ff34c-6da0-43dd-bacb-fa688a4e0c6c",
+                  "name": "tags",
+                  "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-developer-sg\")"
+                }
+              ],
               "instances": [
                 {
-                  "guid": "cf47dd80-9b80-4a5f-8a87-df31b1809f33",
-                  "packetGuid": "github.com\\infraxys-aws\\aws-iam\\master\\iam role",
+                  "id": "cf47dd80-9b80-4a5f-8a87-df31b1809f33",
+                  "packetId": "76657ba8-7a80-4e22-95bb-6b22b1a8325f",
+                  "packetName": "IAM Role",
+                  "packetPath": "github.com\\infraxys-aws\\aws-iam\\master",
                   "velocityName": "",
                   "instanceGroups": "",
-                  "description": "Infraxys Developer instance profile role",
-                  "iam_role_name": "${container.name}-infraxys-role",
-                  "use_for_instance_profile": "1",
+                  "attributes": [
+                    {
+                      "id": "8f606848-71a2-43fd-a30b-2f8c2e9e56dc",
+                      "name": "description",
+                      "value": "Infraxys Developer instance profile role"
+                    },
+                    {
+                      "id": "b06dd115-d564-4325-adf0-6c435117fe1b",
+                      "name": "iam_role_name",
+                      "value": "${container.name}-infraxys-role"
+                    },
+                    {
+                      "id": "f161948a-6ce6-4224-9a47-d2d69ddaa422",
+                      "name": "use_for_instance_profile",
+                      "value": "1"
+                    }
+                  ],
                   "instances": [
                     {
-                      "guid": "798df6bb-a798-4a32-a015-3671a5fb218b",
-                      "packetGuid": "github.com\\infraxys-aws\\aws-iam\\master\\iam policy",
+                      "id": "798df6bb-a798-4a32-a015-3671a5fb218b",
+                      "packetId": "f9e5009a-2a78-452a-9792-712b7b0de532",
+                      "packetName": "IAM Policy",
+                      "packetPath": "github.com\\infraxys-aws\\aws-iam\\master",
                       "velocityName": "",
                       "instanceGroups": "",
-                      "description": "Policy for the Infraxys instance",
-                      "policy": "{\n   \"Version\": \"2012-10-17\",\n   \"Statement\" : [\n      {\n        \"Action\": [\n          \"ec2:DescribeTags\"\n        ],\n        \"Effect\": \"Allow\",\n        \"Resource\": \"*\"\n      }\n    ]\n}",
-                      "policy_name": "${container.name}-infraxys-policy"
+                      "attributes": [
+                        {
+                          "id": "02282110-5390-4fca-8a55-7204c9815282",
+                          "name": "description",
+                          "value": "Policy for the Infraxys instance"
+                        },
+                        {
+                          "id": "655ea17b-deb5-4870-a9d1-6be9bd710182",
+                          "name": "policy",
+                          "value": "{\n   \"Version\": \"2012-10-17\",\n   \"Statement\" : [\n      {\n        \"Action\": [\n          \"ec2:DescribeTags\"\n        ],\n        \"Effect\": \"Allow\",\n        \"Resource\": \"*\"\n      }\n    ]\n}"
+                        },
+                        {
+                          "id": "f2d03152-abef-4217-ba75-8a3c5132ddad",
+                          "name": "policy_name",
+                          "value": "${container.name}-infraxys-policy"
+                        }
+                      ]
                     }
                   ]
                 }
               ]
             },
             {
-              "guid": "3cdbb40d-3426-4a42-87ee-66db690a9f40",
-              "packetGuid": "github.com\\infraxys-aws\\aws-route53\\master\\terraform route53 cname record",
+              "id": "3cdbb40d-3426-4a42-87ee-66db690a9f40",
+              "packetId": "13dd6194-a869-4684-bf79-7c0dbb5a3d87",
+              "packetName": "Terraform Route53 cname record",
+              "packetPath": "github.com\\infraxys-aws\\aws-route53\\master",
               "velocityName": "",
               "instanceGroups": "",
-              "instance_label": "Instance CNAME record",
-              "route53_name": "$container.getAttribute(\"infraxys_dns_name\")",
-              "route53_records": "[aws_instance.${instance.parent.getAttribute(\"instance_name\")}.public_dns]",
-              "route53_ttl": "60",
-              "route53_zone_id": "$container.getAttribute(\"infraxys_route53_zone_id\")"
+              "attributes": [
+                {
+                  "id": "638515fe-bafb-4dec-98a7-b457392e7f10",
+                  "name": "instance_label",
+                  "value": "Instance CNAME record"
+                },
+                {
+                  "id": "155f7fc2-a9dd-4c40-b80e-03ed7564d764",
+                  "name": "route53_name",
+                  "value": "$container.getAttribute(\"infraxys_dns_name\")"
+                },
+                {
+                  "id": "efb91161-b396-42d5-ac8e-ba44230198b8",
+                  "name": "route53_records",
+                  "value": "[aws_instance.${instance.parent.getAttribute(\"instance_name\")}.public_dns]"
+                },
+                {
+                  "id": "05ef1ac1-b4da-413e-9dfc-1e6c3caddac8",
+                  "name": "route53_ttl",
+                  "value": "60"
+                },
+                {
+                  "id": "874121af-a93f-444c-b61d-880252109ba2",
+                  "name": "route53_zone_id",
+                  "value": "$container.getAttribute(\"infraxys_route53_zone_id\")"
+                }
+              ]
             }
           ]
         },
         {
-          "guid": "05ef6609-429d-40ee-98bf-b5826286bdcb",
-          "packetGuid": "github.com\\infraxys-modules\\terraform\\master\\terraform s3 remote state",
+          "id": "05ef6609-429d-40ee-98bf-b5826286bdcb",
+          "packetId": "61654b2d-ec4c-456b-a1b4-679e57dde6f4",
+          "packetName": "Terraform S3 remote state",
+          "packetPath": "github.com\\infraxys-modules\\terraform\\master",
           "velocityName": "",
           "instanceGroups": "",
-          "state_aws_region": "$container.getAttribute(\"aws_core_region\")",
-          "state_encrypt_file": "1",
-          "state_key": "$container.getAttribute(\"aws_core_s3_state_folder\")/${container.name}.tfstate",
-          "state_name": "$container.name",
-          "state_s3_bucket": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
+          "attributes": [
+            {
+              "id": "aa0e2705-35af-4cb8-ba5e-28d2168862ac",
+              "name": "state_aws_region",
+              "value": "$container.getAttribute(\"aws_core_region\")"
+            },
+            {
+              "id": "88eb52c2-7dac-4181-8713-662bba6a9ebc",
+              "name": "state_encrypt_file",
+              "value": "1"
+            },
+            {
+              "id": "710a46f7-b5af-4bd3-96a9-9878756ab540",
+              "name": "state_key",
+              "value": "$container.getAttribute(\"aws_core_s3_state_folder\")/${container.name}.tfstate"
+            },
+            {
+              "id": "f4fa16c5-501a-41f6-9d9e-97963cfd0014",
+              "name": "state_name",
+              "value": "$container.name"
+            },
+            {
+              "id": "fa679a6a-71a6-4840-9d66-da7622ad5626",
+              "name": "state_profile",
+              "value": ""
+            },
+            {
+              "id": "90b780d0-90fd-4b3c-a930-dbb1399a881d",
+              "name": "state_s3_bucket",
+              "value": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
+            }
+          ]
         }
       ]
     }
