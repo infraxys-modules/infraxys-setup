@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "id": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+  "roles": [
+    {
+      "name": "Shared config for infraxys-setup",
+      "id": "e6c45917-cb22-47ad-9da2-f757fead0ffa",
+      "path": "github.com\\infraxys-core\\infraxys-setup\\master"
+    },
+    {
+      "name": "VPC with private, shared and public subnet",
+      "id": "01cacebe-f6af-427e-9cbc-9d9cdf134a80",
+      "path": "github.com\\infraxys-aws\\aws-vpc\\master"
+    }
+  ],
+  "instances": []
+}

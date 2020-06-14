@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "id": "d334aad8-0792-485c-8a08-ea02c3e6fc4e",
+  "roles": [
+    {
+      "name": "infraxys-developer",
+      "id": "eb9e6578-9f4a-41c0-807f-e8d588554c1d",
+      "path": "github.com\\infraxys-modules\\infraxys-setup\\master"
+    },
+    {
+      "name": "Shared config for infraxys-setup",
+      "id": "e6c45917-cb22-47ad-9da2-f757fead0ffa",
+      "path": "github.com\\infraxys-core\\infraxys-setup\\master"
+    }
+  ],
+  "instances": [
+    {
+      "id": "7242b450-c58a-4173-a5a5-31a43707b3eb",
+      "packetId": "0c16cae2-be2c-49be-a6ee-c964d6ff9844",
+      "packetName": "Infraxys Developer Config",
+      "packetPath": "github.com\\jeroenmanders\\infraxys-environments\\master",
+      "velocityName": "",
+      "instanceGroups": "",
+      "attributes": [
+        {
+          "id": "5d8d06d5-decd-4fe2-9cd7-084aae2aec31",
+          "name": "infraxys_developer_fullname",
+          "value": "Jeroen Manders"
+        },
+        {
+          "id": "c3664bc5-a27f-4b9f-bc18-2e624c240379",
+          "name": "infraxys_developer_username",
+          "value": "jeroen_manders@external.mckinsey.com"
+        },
+        {
+          "id": "21f9c7f5-bde2-47f5-b521-85909cd3c4fa",
+          "name": "infraxys_dns_name",
+          "value": "infraxys-developer-jeroen"
+        },
+        {
+          "id": "cd306ba1-8868-4f4f-9e21-a850142be0db",
+          "name": "infraxys_key_pair_name",
+          "value": "infraxys-by-example"
+        },
+        {
+          "id": "f277ff10-8f67-4ec2-b899-d36953cf41c7",
+          "name": "infraxys_route53_zone_id",
+          "value": "\"Z3NANQDCL6YFJL\""
+        }
+      ]
+    }
+  ]
+}

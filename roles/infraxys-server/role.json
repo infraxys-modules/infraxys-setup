@@ -43,7 +43,7 @@
         {
           "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
           "name": "terraform_version",
-          "value": "0.12.12"
+          "value": "0.12.24"
         }
       ],
       "instances": [
@@ -113,12 +113,12 @@
                 {
                   "id": "4b190392-aaf2-4578-b4fd-2a9cb96af6f8",
                   "name": "image_id",
-                  "value": "infraxys/images/infraxys-1.4-server-"
+                  "value": "infraxys/images/infraxys-2.0.*-server-*"
                 },
                 {
                   "id": "5c1ee9bc-89da-4aa8-9582-7ac4912df968",
                   "name": "image_owners",
-                  "value": "amazon"
+                  "value": "self"
                 },
                 {
                   "id": "293cf5fd-18ee-483b-9fff-d8ba4601a9ad",
@@ -316,6 +316,11 @@
                       "id": "1e5ff34c-6da0-43dd-bacb-fa688a4e0c6c",
                       "name": "tags",
                       "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-sg\")"
+                    },
+                    {
+                      "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
+                      "name": "ignore_changes",
+                      "value": ""
                     }
                   ]
                 }
@@ -358,6 +363,11 @@
                   "id": "1e5ff34c-6da0-43dd-bacb-fa688a4e0c6c",
                   "name": "tags",
                   "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-ext-alb-sg\")"
+                },
+                {
+                  "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
+                  "name": "ignore_changes",
+                  "value": ""
                 }
               ]
             },
@@ -392,7 +402,7 @@
                     {
                       "id": "6ef48373-f373-4ec9-b87a-eb4397952ef5",
                       "name": "listener_config_hcl",
-                      "value": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n#set ($ec2Instance \u003d $instance.getInstanceByAttributeVelocityName(\"load_balancer_attach_instance_vn\"))\n\nresource \"aws_alb_listener_rule\" \"listener_rule_admin\" {\n  depends_on   \u003d [\"aws_alb_target_group.alb_tg_admin\"]\n  listener_arn \u003d aws_alb_listener.alb_https_listener.arn\n  priority     \u003d \"100\"\n  condition {\n\n     host_header {\n        values \u003d [\"${adminDnsRecord.getAttribute(\"route53_name\")}.*\"]\n    }\n  }\n  action {\n    type             \u003d \"forward\"\n    target_group_arn \u003d aws_alb_target_group.alb_tg_admin.id\n  }\n}\n\nresource \"aws_alb_target_group_attachment\" \"alb_tg_att_admin\" {\n  target_group_arn \u003d aws_alb_target_group.alb_tg_admin.arn\n  target_id        \u003d aws_instance.${ec2Instance.getAttribute(\"instance_name\")}.id\n  port             \u003d 8082\n}"
+                      "value": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n#set ($ec2Instance \u003d $instance.getInstanceByAttributeVelocityName(\"load_balancer_attach_instance_vn\"))\n\nresource \"aws_alb_listener_rule\" \"listener_rule_admin\" {\n  depends_on   \u003d [aws_alb_target_group.alb_tg_admin]\n  listener_arn \u003d aws_alb_listener.alb_https_listener.arn\n  priority     \u003d \"100\"\n  condition {\n\n     host_header {\n        values \u003d [\"${adminDnsRecord.getAttribute(\"route53_name\")}.*\"]\n    }\n  }\n  action {\n    type             \u003d \"forward\"\n    target_group_arn \u003d aws_alb_target_group.alb_tg_admin.id\n  }\n}\n\nresource \"aws_alb_target_group_attachment\" \"alb_tg_att_admin\" {\n  target_group_arn \u003d aws_alb_target_group.alb_tg_admin.arn\n  target_id        \u003d aws_instance.${ec2Instance.getAttribute(\"instance_name\")}.id\n  port             \u003d 8082\n}"
                     },
                     {
                       "id": "a76144c4-23f7-48f8-9996-c2ce84f5d3bb",
@@ -414,7 +424,7 @@
                 {
                   "id": "b7428e49-fdf0-488c-9837-1e86d6ea06ad",
                   "name": "target_group_hcl",
-                  "value": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n#set ($inVpcConfig \u003d $instance.getParentInstanceByPacketType(\"AWS_VPC\"))\n#set ($ec2Instance \u003d $instance.getInstanceByAttributeVelocityName(\"load_balancer_attach_instance_vn\"))\n#if ($inVpcConfig)\n  #set ($vpcId \u003d \"module.vpc.outputs.vpc_id\")\n#else\n  #set ($vpcId \u003d \"data.terraform_remote_state.vpc.outputs.vpc_id\")\n#end\n\nresource \"aws_alb_target_group\" \"alb_target_group\" {\n  name     \u003d \"${loadBalancerName}-tg\"\n  port     \u003d \"8443\"\n  protocol \u003d \"HTTPS\"\n  vpc_id \u003d $vpcId\n\n    tags \u003d {\n$instance.getAttribute(\"tags\")\n    }\n\n  stickiness {\n    type            \u003d \"lb_cookie\"\n    cookie_duration \u003d 1800\n    enabled         \u003d \"true\"\n  }\n  health_check {\n    healthy_threshold   \u003d 3\n    unhealthy_threshold \u003d 10\n    timeout             \u003d 5\n    interval            \u003d 10\n    path                \u003d \"/index.jsp\"\n    port                \u003d \"8082\"\n    matcher             \u003d \"302\"\n  }\n}\n\nresource \"aws_alb_target_group_attachment\" \"alb_target_group_att\" {\n  target_group_arn \u003d aws_alb_target_group.alb_target_group.arn\n  target_id        \u003d aws_instance.${ec2Instance.getAttribute(\"instance_name\")}.id\n  port             \u003d 8443\n}"
+                  "value": "#set ($loadBalancerName \u003d $instance.getAttribute(\"load_balancer_name\"))\n#set ($inVpcConfig \u003d $instance.getParentInstanceByPacketType(\"AWS_VPC\"))\n#set ($ec2Instance \u003d $instance.getInstanceByAttributeVelocityName(\"load_balancer_attach_instance_vn\"))\n#if ($inVpcConfig)\n  #set ($vpcId \u003d \"module.vpc.outputs.vpc_id\")\n#else\n  #set ($vpcId \u003d \"data.terraform_remote_state.vpc.outputs.vpc_id\")\n#end\n\nresource \"aws_alb_target_group\" \"alb_target_group\" {\n  name     \u003d \"${loadBalancerName}-tg\"\n  port     \u003d \"8443\"\n  protocol \u003d \"HTTPS\"\n  vpc_id \u003d $vpcId\n\n    tags \u003d {\n$instance.getAttribute(\"tags\")\n    }\n\n  stickiness {\n    type            \u003d \"lb_cookie\"\n    cookie_duration \u003d 1800\n    enabled         \u003d \"true\"\n  }\n  health_check {\n    healthy_threshold   \u003d 3\n    unhealthy_threshold \u003d 10\n    timeout             \u003d 5\n    interval            \u003d 10\n    path                \u003d \"/\"\n    port                \u003d \"8443\"\n    matcher             \u003d \"301\"\n  }\n}\n\nresource \"aws_alb_target_group_attachment\" \"alb_target_group_att\" {\n  target_group_arn \u003d aws_alb_target_group.alb_target_group.arn\n  target_id        \u003d aws_instance.${ec2Instance.getAttribute(\"instance_name\")}.id\n  port             \u003d 8443\n}"
                 },
                 {
                   "id": "4040d691-6bcb-4857-9974-fc8b3029fe09",

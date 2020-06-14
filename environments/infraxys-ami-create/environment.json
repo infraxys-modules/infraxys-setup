@@ -1,0 +1,131 @@
+{
+  "version": "1.0",
+  "id": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+  "workflows": [
+    {
+      "name": "Cleanup",
+      "id": "877de7e2-6f2e-44d8-9f49-f102246e692e",
+      "runnableFromWebhook": false,
+      "steps": [
+        {
+          "name": "Terraform destroy",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "0463fce0-5ce5-4173-85d5-b208ed1423ed",
+          "instanceId": "240d5d53-9737-4d23-8ce7-9b6fb16c11d2",
+          "packetFileId": "d4a2261e-fbc1-4eb7-97c7-9d84dc8639b3"
+        },
+        {
+          "name": "Terraform destroy",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "87244696-c442-4d28-ad53-eb8c2336fa20",
+          "packetFileId": "d4a2261e-fbc1-4eb7-97c7-9d84dc8639b3"
+        },
+        {
+          "name": "Terraform destroy",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "guid-46433",
+          "packetFileId": "d4a2261e-fbc1-4eb7-97c7-9d84dc8639b3"
+        }
+      ]
+    },
+    {
+      "name": "Full-run",
+      "id": "6b3918c3-731e-448f-bcd0-381bc3c69703",
+      "runnableFromWebhook": false,
+      "steps": [
+        {
+          "name": "Terraform apply",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "guid-46433",
+          "packetFileId": "f5474149-0910-4824-bc72-400346e3b616"
+        },
+        {
+          "name": "Terraform apply",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "87244696-c442-4d28-ad53-eb8c2336fa20",
+          "packetFileId": "f5474149-0910-4824-bc72-400346e3b616"
+        },
+        {
+          "name": "Create AMI",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "0d422aac-38ca-404d-b561-898471c9105c",
+          "instanceId": "836d2015-cb0e-4778-bef9-30d3a9fc9ccb",
+          "packetFileId": "4060f47f-db51-4bf0-8a64-86842525989d"
+        },
+        {
+          "name": "Create AMI",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "0d422aac-38ca-404d-b561-898471c9105c",
+          "instanceId": "9fc25eb1-bb32-49f9-b53c-8d2002a57f77",
+          "packetFileId": "4060f47f-db51-4bf0-8a64-86842525989d"
+        },
+        {
+          "name": "Create AMI",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "0d422aac-38ca-404d-b561-898471c9105c",
+          "instanceId": "602c5981-2476-47a0-8b0d-e544696e74b3",
+          "packetFileId": "4060f47f-db51-4bf0-8a64-86842525989d"
+        },
+        {
+          "name": "Terraform destroy",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "87244696-c442-4d28-ad53-eb8c2336fa20",
+          "packetFileId": "d4a2261e-fbc1-4eb7-97c7-9d84dc8639b3"
+        },
+        {
+          "name": "Terraform destroy",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "guid-46433",
+          "packetFileId": "d4a2261e-fbc1-4eb7-97c7-9d84dc8639b3"
+        }
+      ]
+    },
+    {
+      "name": "Setup VPC and server",
+      "id": "60c2361b-080f-414d-bea8-844a9ec19464",
+      "runnableFromWebhook": false,
+      "steps": [
+        {
+          "name": "Terraform apply",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "guid-46433",
+          "packetFileId": "f5474149-0910-4824-bc72-400346e3b616"
+        },
+        {
+          "name": "Terraform apply",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "2cb5c668-9357-40e2-8a68-6dd8b09f36cb",
+          "instanceId": "87244696-c442-4d28-ad53-eb8c2336fa20",
+          "packetFileId": "f5474149-0910-4824-bc72-400346e3b616"
+        },
+        {
+          "name": "Terraform apply",
+          "moduleBranchPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
+          "environmentId": "26c5581c-ec7c-4608-b55c-7b3eaa16b58c",
+          "containerId": "0463fce0-5ce5-4173-85d5-b208ed1423ed",
+          "instanceId": "240d5d53-9737-4d23-8ce7-9b6fb16c11d2",
+          "packetFileId": "f5474149-0910-4824-bc72-400346e3b616"
+        }
+      ]
+    }
+  ]
+}

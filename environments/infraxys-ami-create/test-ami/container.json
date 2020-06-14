@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+  "id": "0463fce0-5ce5-4173-85d5-b208ed1423ed",
+  "roles": [
+    {
+      "name": "infraxys-server",
+      "id": "fa6259d8-af9d-4417-90cb-440ddccd6c3b",
+      "path": "github.com\\infraxys-modules\\infraxys-setup\\master"
+    },
+    {
+      "name": "Shared config for infraxys-setup",
+      "id": "e6c45917-cb22-47ad-9da2-f757fead0ffa",
+      "path": "github.com\\infraxys-core\\infraxys-setup\\master"
+    }
+  ],
+  "instances": [
+    {
+      "id": "d7251b1b-760e-4929-bb57-056d6d84b851",
+      "packetId": "b835bb1c-2e02-4bd5-b73f-69cd3b53c5f6",
+      "packetName": "Infraxys Server Config",
+      "packetPath": "github.com\\jeroenmanders\\infraxys-environments\\master",
+      "velocityName": "",
+      "instanceGroups": "",
+      "attributes": [
+        {
+          "id": "ffdff3ce-26ae-4927-814d-10c88a9cb993",
+          "name": "infraxys_dns_name",
+          "value": "ami-tests"
+        },
+        {
+          "id": "b320bded-6d7f-4140-8e0a-d6ec4be0b769",
+          "name": "infraxys_key_pair_name",
+          "value": "infraxys-by-example"
+        },
+        {
+          "id": "577634ab-6101-4cca-97df-fc9329b8cabb",
+          "name": "infraxys_route53_zone_id",
+          "value": "\"Z3NANQDCL6YFJL\""
+        },
+        {
+          "id": "ae4375f9-8b42-47b5-9d0c-4045606fb86a",
+          "name": "infraxys_ssl_certificate_arn",
+          "value": "arn:aws:acm:eu-west-1:525113970320:certificate/58a7439e-e440-457b-aee7-ba8a5bbc7f87"
+        }
+      ]
+    }
+  ]
+}

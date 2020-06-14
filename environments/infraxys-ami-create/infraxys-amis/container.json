@@ -1,0 +1,471 @@
+{
+  "version": "1.0",
+  "id": "0d422aac-38ca-404d-b561-898471c9105c",
+  "roles": [
+    {
+      "name": "Shared config for infraxys-setup",
+      "id": "e6c45917-cb22-47ad-9da2-f757fead0ffa",
+      "path": "github.com\\infraxys-core\\infraxys-setup\\master"
+    }
+  ],
+  "instances": [
+    {
+      "id": "90dfb0f4-fc17-4751-9c3a-8bcd410f4592",
+      "packetId": "716c6f36-3ba6-4574-98d4-862b171615ea",
+      "packetName": "Packer AWS build environment",
+      "packetPath": "github.com\\infraxys-aws\\aws-packer\\master",
+      "velocityName": "",
+      "instanceGroups": "",
+      "attributes": [
+        {
+          "id": "88da52d5-cbb9-4572-8221-ef726993003b",
+          "name": "aws_region",
+          "value": "$container.getAttribute(\"aws_core_region\")"
+        },
+        {
+          "id": "014b97a8-eb4f-4e2b-92f8-9559463fdd0e",
+          "name": "bastion_name",
+          "value": "$bastionHost.getAttribute(\"bastion_name\")"
+        },
+        {
+          "id": "28f513de-95f1-45f0-aa90-8c57077a54ad",
+          "name": "security_group_name",
+          "value": "$packerSg.getAttribute(\"security_group_name\")"
+        },
+        {
+          "id": "c61512d8-13cc-4ec3-ba38-f3210226df0c",
+          "name": "ssh_bastion_private_key_file",
+          "value": "$bastionHost.getAttribute(\"private_key_file\")"
+        },
+        {
+          "id": "528f5170-84af-46df-953e-377fe1d2848c",
+          "name": "ssh_bastion_username",
+          "value": "$bastionHost.getAttribute(\"ssh_username\")"
+        },
+        {
+          "id": "72bdd79a-ccbb-43cf-a9d0-f8e437e3869f",
+          "name": "subnet_name",
+          "value": "$vpc.getAttribute(\"vpc_name_prefix\")-private-sn"
+        },
+        {
+          "id": "343bf903-0d02-4e3f-88f8-7166cd03f894",
+          "name": "vpc_name",
+          "value": "$vpc.getAttribute(\"vpc_name\")"
+        },
+        {
+          "id": "2779001c-58aa-4288-873b-fb65f77784d8",
+          "name": "vault_config_variable",
+          "value": ""
+        }
+      ],
+      "instances": [
+        {
+          "id": "836d2015-cb0e-4778-bef9-30d3a9fc9ccb",
+          "packetId": "d92333c4-85f7-4661-8b10-fc4c478ac47a",
+          "packetName": "Packer AWS Ubuntu",
+          "packetPath": "github.com\\infraxys-aws\\aws-packer-ubuntu\\ubuntu-18.04",
+          "velocityName": "",
+          "instanceGroups": "",
+          "attributes": [
+            {
+              "id": "12f30e4f-3c1d-4cf5-a182-4fa730ded2b7",
+              "name": "ami_description",
+              "value": "Docker 18.06 on Ubuntu 18.04 AMI"
+            },
+            {
+              "id": "c79b9eb9-c745-4836-8e9b-5f15233c8eae",
+              "name": "ami_name_prefix",
+              "value": "ubuntu-18.04"
+            },
+            {
+              "id": "d49014e1-6018-4d94-bdc4-88206fd6a0ef",
+              "name": "associate_public_ip_address",
+              "value": "0"
+            },
+            {
+              "id": "ccf87656-c6e9-44be-a023-82c1e47643a9",
+              "name": "copy_to_aws_regions",
+              "value": ""
+            },
+            {
+              "id": "5983ad8e-97c4-402e-8d67-ee59240b2e77",
+              "name": "debug_mode",
+              "value": "0"
+            },
+            {
+              "id": "bc5685fe-7196-4fc7-af97-b22812ad59c7",
+              "name": "do_encrypt_boot",
+              "value": "0"
+            },
+            {
+              "id": "f76ced9b-b632-49af-8cd1-9f30112adfbc",
+              "name": "image_owners",
+              "value": "099720109477"
+            },
+            {
+              "id": "4ba5ab29-292f-4438-baff-c78b6e269cf1",
+              "name": "instance_region",
+              "value": "$instance.parent.getAttribute(\"aws_region\")"
+            },
+            {
+              "id": "633aa336-e7ca-415f-821e-73ac0d19def8",
+              "name": "source_ami",
+              "value": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server*"
+            }
+          ],
+          "instances": [
+            {
+              "id": "9fc25eb1-bb32-49f9-b53c-8d2002a57f77",
+              "packetId": "2235e79b-d7fa-4b8e-aceb-0b4408c37be4",
+              "packetName": "Packer AWS Docker",
+              "packetPath": "github.com\\infraxys-aws\\aws-packer-docker\\docker-18.06-ubuntu-18.04",
+              "velocityName": "",
+              "instanceGroups": "",
+              "attributes": [
+                {
+                  "id": "e8ed3168-075f-4006-8432-9e21d70969ef",
+                  "name": "ami_description",
+                  "value": "Docker 18.06 on Ubuntu AMI"
+                },
+                {
+                  "id": "a08d1f01-8bc7-4ab9-b5d5-d98b9ac947c6",
+                  "name": "ami_name_prefix",
+                  "value": "docker-18.06-on-ubuntu"
+                },
+                {
+                  "id": "266d0e74-c0d7-4cb2-ae2b-ff38cd631a11",
+                  "name": "associate_public_ip_address",
+                  "value": "0"
+                },
+                {
+                  "id": "988d95c1-05ad-4f47-8c41-02a09ebc2581",
+                  "name": "copy_to_aws_regions",
+                  "value": ""
+                },
+                {
+                  "id": "c2d7b644-e829-438e-b07c-885d546154a4",
+                  "name": "debug_mode",
+                  "value": "0"
+                },
+                {
+                  "id": "a01e2809-3327-445b-b39a-cf849f0b3a57",
+                  "name": "do_encrypt_boot",
+                  "value": "0"
+                },
+                {
+                  "id": "79285316-c485-42f8-9a3a-5f8fa68ddea6",
+                  "name": "image_owners",
+                  "value": ""
+                },
+                {
+                  "id": "6516b2e4-067b-4a6a-b1b5-5bbb8013ec4b",
+                  "name": "instance_region",
+                  "value": "$instance.parent.getAttribute(\"aws_region\")"
+                },
+                {
+                  "id": "db0c0725-bbf7-4c9d-aac4-66f500778267",
+                  "name": "source_ami",
+                  "value": "$instance.parent.getAttribute(\"ami_name_prefix\")*"
+                }
+              ],
+              "instances": [
+                {
+                  "id": "602c5981-2476-47a0-8b0d-e544696e74b3",
+                  "packetId": "752cc4d0-3a7e-4edd-b979-33d37cb4ca24",
+                  "packetName": "Packer AWS Infraxys",
+                  "packetPath": "github.com\\infraxys-aws\\aws-packer-infraxys\\infraxys-1.4",
+                  "velocityName": "awsAMIInfraxys",
+                  "instanceGroups": "",
+                  "attributes": [
+                    {
+                      "id": "cb9f0d52-94eb-49a0-ac8f-7a2dc2473e95",
+                      "name": "ami_description",
+                      "value": "Infraxys $instance.getAttribute(\"tomcat_version\")"
+                    },
+                    {
+                      "id": "86a9d998-5a61-40d7-8fe4-221f46e961ca",
+                      "name": "ami_groups",
+                      "value": ""
+                    },
+                    {
+                      "id": "a5d10560-f0e7-4f0c-bb30-e3c085e16fff",
+                      "name": "ami_name_prefix",
+                      "value": "infraxys/images/infraxys-$instance.getAttribute(\"tomcat_version\")-server-"
+                    },
+                    {
+                      "id": "bc38d633-3095-4d4d-a7ed-1b8ed4c9f13d",
+                      "name": "associate_public_ip_address",
+                      "value": "0"
+                    },
+                    {
+                      "id": "803da92d-3a10-4392-a274-37b905fbb60c",
+                      "name": "copy_to_aws_regions",
+                      "value": ""
+                    },
+                    {
+                      "id": "cef86fb8-5875-4ecd-8bf8-a26bd84020b2",
+                      "name": "debug_mode",
+                      "value": "0"
+                    },
+                    {
+                      "id": "6986bbae-7d60-4c69-a9a4-12d892c0427e",
+                      "name": "do_encrypt_boot",
+                      "value": "0"
+                    },
+                    {
+                      "id": "dcaf4b1b-12da-4ab4-9f3a-8e11761d81b9",
+                      "name": "image_owners",
+                      "value": "self"
+                    },
+                    {
+                      "id": "c6f6e5ad-f0b8-4693-ba14-b72d56703b35",
+                      "name": "instance_region",
+                      "value": "$instance.parent.getAttribute(\"aws_region\")"
+                    },
+                    {
+                      "id": "6678221a-70bb-4fcc-8049-267506fe6d80",
+                      "name": "packer_directory",
+                      "value": "packer-server"
+                    },
+                    {
+                      "id": "473527c8-8c45-488e-b1aa-075d8f2a5c9d",
+                      "name": "source_ami",
+                      "value": "$instance.parent.getAttribute(\"ami_name_prefix\")*"
+                    },
+                    {
+                      "id": "dc6654c2-4abf-4802-a1e0-0089eecf3ddb",
+                      "name": "tomcat_version",
+                      "value": "2.0.408"
+                    },
+                    {
+                      "id": "481609c2-aefe-44ad-aea3-cb66a74e8c02",
+                      "name": "web_version",
+                      "value": "2.0"
+                    },
+                    {
+                      "id": "8689d3fb-cf92-49c6-9483-6049a1e2c131",
+                      "name": "vault_version",
+                      "value": "2.0"
+                    },
+                    {
+                      "id": "3fa5901a-8398-4fd3-886b-9dbba9772b00",
+                      "name": "fluentd_version",
+                      "value": "1.4"
+                    },
+                    {
+                      "id": "5651d757-16c5-45b9-ac4a-8700b20d4962",
+                      "name": "oauth_version",
+                      "value": "5.0.0"
+                    },
+                    {
+                      "id": "7a33ccc0-08ef-4426-ba1f-7688ba6c466e",
+                      "name": "db_version",
+                      "value": "2.0"
+                    },
+                    {
+                      "id": "1279389f-7d71-4171-bd11-59e3a8647adc",
+                      "name": "admin_version",
+                      "value": "1.4"
+                    }
+                  ]
+                },
+                {
+                  "id": "752de9d8-81f9-4ffb-a948-9511e22d02b0",
+                  "packetId": "752cc4d0-3a7e-4edd-b979-33d37cb4ca24",
+                  "packetName": "Packer AWS Infraxys",
+                  "packetPath": "github.com\\infraxys-aws\\aws-packer-infraxys\\infraxys-1.4",
+                  "velocityName": "awsAMIInfraxys",
+                  "instanceGroups": "",
+                  "attributes": [
+                    {
+                      "id": "cb9f0d52-94eb-49a0-ac8f-7a2dc2473e95",
+                      "name": "ami_description",
+                      "value": "Infraxys 1.4 Developer on Ubuntu 18.04"
+                    },
+                    {
+                      "id": "86a9d998-5a61-40d7-8fe4-221f46e961ca",
+                      "name": "ami_groups",
+                      "value": "all"
+                    },
+                    {
+                      "id": "a5d10560-f0e7-4f0c-bb30-e3c085e16fff",
+                      "name": "ami_name_prefix",
+                      "value": "infraxys/images/infraxys-1.4-developer-"
+                    },
+                    {
+                      "id": "bc38d633-3095-4d4d-a7ed-1b8ed4c9f13d",
+                      "name": "associate_public_ip_address",
+                      "value": "0"
+                    },
+                    {
+                      "id": "803da92d-3a10-4392-a274-37b905fbb60c",
+                      "name": "copy_to_aws_regions",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "id": "cef86fb8-5875-4ecd-8bf8-a26bd84020b2",
+                      "name": "debug_mode",
+                      "value": "0"
+                    },
+                    {
+                      "id": "6986bbae-7d60-4c69-a9a4-12d892c0427e",
+                      "name": "do_encrypt_boot",
+                      "value": "0"
+                    },
+                    {
+                      "id": "dcaf4b1b-12da-4ab4-9f3a-8e11761d81b9",
+                      "name": "image_owners",
+                      "value": ""
+                    },
+                    {
+                      "id": "c6f6e5ad-f0b8-4693-ba14-b72d56703b35",
+                      "name": "instance_region",
+                      "value": "$instance.parent.getAttribute(\"aws_region\")"
+                    },
+                    {
+                      "id": "6678221a-70bb-4fcc-8049-267506fe6d80",
+                      "name": "packer_directory",
+                      "value": "packer-developer"
+                    },
+                    {
+                      "id": "473527c8-8c45-488e-b1aa-075d8f2a5c9d",
+                      "name": "source_ami",
+                      "value": ""
+                    },
+                    {
+                      "id": "dc6654c2-4abf-4802-a1e0-0089eecf3ddb",
+                      "name": "tomcat_version",
+                      "value": "2.0.408"
+                    },
+                    {
+                      "id": "481609c2-aefe-44ad-aea3-cb66a74e8c02",
+                      "name": "web_version",
+                      "value": "2.0"
+                    },
+                    {
+                      "id": "8689d3fb-cf92-49c6-9483-6049a1e2c131",
+                      "name": "vault_version",
+                      "value": "2.0"
+                    },
+                    {
+                      "id": "3fa5901a-8398-4fd3-886b-9dbba9772b00",
+                      "name": "fluentd_version",
+                      "value": "1.4"
+                    },
+                    {
+                      "id": "5651d757-16c5-45b9-ac4a-8700b20d4962",
+                      "name": "oauth_version",
+                      "value": "5.0.0"
+                    },
+                    {
+                      "id": "7a33ccc0-08ef-4426-ba1f-7688ba6c466e",
+                      "name": "db_version",
+                      "value": "2.0"
+                    },
+                    {
+                      "id": "1279389f-7d71-4171-bd11-59e3a8647adc",
+                      "name": "admin_version",
+                      "value": "1.4"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e68ea009-46fd-449f-92fa-5cb35714915f",
+      "packetId": "c11f5f24-b10c-489a-8ca2-a953b2acfc63",
+      "packetName": "Terraform AWS runner",
+      "packetPath": "github.com\\infraxys-modules\\terraform\\master",
+      "velocityName": "",
+      "instanceGroups": "",
+      "attributes": [
+        {
+          "id": "13ac5f10-a272-42fa-9da3-b5aab7b21c9a",
+          "name": "aws_provider_version",
+          "value": "~\u003e 2.32.0"
+        },
+        {
+          "id": "5d847331-e33c-4c11-888d-115564d96d22",
+          "name": "aws_region",
+          "value": "$terraformVpcState.getAttribute(\"aws_region\")"
+        },
+        {
+          "id": "7f34b229-aacb-4532-89e5-e104fead83b2",
+          "name": "extra_terraform",
+          "value": ""
+        },
+        {
+          "id": "7ee45dcf-ee9b-433c-b046-5ac178df1804",
+          "name": "instance_label",
+          "value": "Packer Terraform state"
+        },
+        {
+          "id": "3bf254f1-3235-4471-ac8a-d11a0a691a34",
+          "name": "skip_terraform_action_creation",
+          "value": "1"
+        },
+        {
+          "id": "4d1e521e-5567-4295-b2ca-90be5f492016",
+          "name": "state_velocity_names",
+          "value": "terraformVpcState"
+        },
+        {
+          "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
+          "name": "terraform_version",
+          "value": "0.12.12"
+        }
+      ],
+      "instances": [
+        {
+          "id": "b4242568-5663-4ba1-9455-82c7fd49631d",
+          "packetId": "07aaa698-bd1c-453f-aad1-eecec4321432",
+          "packetName": "Security group",
+          "packetPath": "github.com\\infraxys-aws\\aws-ec2\\master",
+          "velocityName": "packerSg",
+          "instanceGroups": "",
+          "attributes": [
+            {
+              "id": "8233fa49-238b-49c0-8135-0f1b2c876878",
+              "name": "description",
+              "value": "Security group  to access Packer instances through the bastion host"
+            },
+            {
+              "id": "22e4731e-5047-45bf-945f-48e6aea36be0",
+              "name": "egress_rules",
+              "value": "  egress {\n    protocol \u003d -1\n    from_port \u003d 0\n    to_port \u003d 0\n    cidr_blocks \u003d [\n      \"0.0.0.0/0\"\n    ]\n  }"
+            },
+            {
+              "id": "b9e43f2d-442c-42e6-8ec3-e8a7fce2c750",
+              "name": "extra_terraform",
+              "value": ""
+            },
+            {
+              "id": "ba9a9e6a-f638-4e8a-bc7a-2f3d73f77fd8",
+              "name": "ingress_rules",
+              "value": "  ingress {\n    protocol    \u003d \"tcp\"\n    from_port   \u003d 22\n    to_port     \u003d 22\n    security_groups \u003d [data.terraform_remote_state.vpc.outputs.${bastionSg.getAttribute(\"security_group_name\")}_id]\n  }"
+            },
+            {
+              "id": "75be56db-e3e9-4db7-b127-91884a1e4c22",
+              "name": "security_group_name",
+              "value": "packer-sg"
+            },
+            {
+              "id": "1e5ff34c-6da0-43dd-bacb-fa688a4e0c6c",
+              "name": "tags",
+              "value": "\"Name\": \"packer-sg\""
+            },
+            {
+              "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
+              "name": "ignore_changes",
+              "value": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
