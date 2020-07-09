@@ -235,7 +235,7 @@
                     {
                       "id": "dc6654c2-4abf-4802-a1e0-0089eecf3ddb",
                       "name": "tomcat_version",
-                      "value": "2.0.408"
+                      "value": "2.0.473"
                     },
                     {
                       "id": "481609c2-aefe-44ad-aea3-cb66a74e8c02",
@@ -417,6 +417,16 @@
           "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
           "name": "terraform_version",
           "value": "0.12.12"
+        },
+        {
+          "id": "3438fffd-4d90-4196-a8ec-6a7abc5b8cd2",
+          "name": "state_name",
+          "value": ""
+        },
+        {
+          "id": "46ebe37d-4a9e-441b-aa91-affd64b297fb",
+          "name": "TF_LOG",
+          "value": ""
         }
       ],
       "instances": [

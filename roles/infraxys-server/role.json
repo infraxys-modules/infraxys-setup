@@ -128,7 +128,7 @@
                 {
                   "id": "5c1ee9bc-89da-4aa8-9582-7ac4912df968",
                   "name": "image_owners",
-                  "value": "self"
+                  "value": "525113970320"
                 },
                 {
                   "id": "293cf5fd-18ee-483b-9fff-d8ba4601a9ad",
@@ -148,7 +148,7 @@
                 {
                   "id": "ba6bc063-e2dd-438c-ace6-12cad2df72bc",
                   "name": "instance_type",
-                  "value": "t2.medium"
+                  "value": "m5.large"
                 },
                 {
                   "id": "177d61b4-ece8-42a5-963e-17f9a38e7e83",
@@ -315,7 +315,7 @@
                     {
                       "id": "ba9a9e6a-f638-4e8a-bc7a-2f3d73f77fd8",
                       "name": "ingress_rules",
-                      "value": "ingress {\n    security_groups \u003d [data.terraform_remote_state.vpc.outputs.${bastionSg.getAttribute(\"security_group_name\")}_id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 22\n    to_port \u003d 22\n}\ningress {\n    security_groups \u003d [aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 8443\n    to_port \u003d 8443\n}\ningress {\n    security_groups \u003d [aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 8082\n    to_port \u003d 8082\n}\n"
+                      "value": "ingress {\n    security_groups \u003d [data.terraform_remote_state.vpc.outputs.bastion_security_group_id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 22\n    to_port \u003d 22\n}\ningress {\n    security_groups \u003d [aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 8443\n    to_port \u003d 8443\n}\ningress {\n    security_groups \u003d [aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id]\n    protocol \u003d \"tcp\"\n    from_port \u003d 8082\n    to_port \u003d 8082\n}\n"
                     },
                     {
                       "id": "75be56db-e3e9-4db7-b127-91884a1e4c22",
@@ -546,7 +546,7 @@
                 {
                   "id": "e429180c-ad61-40e9-a537-06925b058e28",
                   "name": "route53_name",
-                  "value": "$container.getAttribute(\"infraxys_dns_name\")-admin"
+                  "value": "#if ($container.getAttribute(\"infraxys_dns_name\") !\u003d \"\")$container.getAttribute(\"infraxys_dns_name\")-admin#end"
                 },
                 {
                   "id": "76dd343e-f904-4b3e-8686-40c04d2d9c7b",
