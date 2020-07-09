@@ -23,22 +23,22 @@
       "instanceGroups": "",
       "attributes": [
         {
-          "id": "ffdff3ce-26ae-4927-814d-10c88a9cb993",
+          "id": "a2fb3712-5c2a-491a-a95b-10fa5418127c",
           "name": "infraxys_dns_name",
           "value": "ami-tests"
         },
         {
-          "id": "b320bded-6d7f-4140-8e0a-d6ec4be0b769",
+          "id": "d8c72b35-9baf-45ab-b3f4-af84327da9c2",
           "name": "infraxys_key_pair_name",
           "value": "infraxys-by-example"
         },
         {
-          "id": "577634ab-6101-4cca-97df-fc9329b8cabb",
+          "id": "9016c545-e775-43d6-90b4-6426603b2529",
           "name": "infraxys_route53_zone_id",
           "value": "\"Z3NANQDCL6YFJL\""
         },
         {
-          "id": "ae4375f9-8b42-47b5-9d0c-4045606fb86a",
+          "id": "0bd9a499-83fc-4423-ac23-e5022967f16d",
           "name": "infraxys_ssl_certificate_arn",
           "value": "arn:aws:acm:eu-west-1:525113970320:certificate/58a7439e-e440-457b-aee7-ba8a5bbc7f87"
         }
