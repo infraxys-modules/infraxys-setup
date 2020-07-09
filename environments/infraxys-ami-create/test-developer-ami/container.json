@@ -18,7 +18,7 @@
       "id": "7242b450-c58a-4173-a5a5-31a43707b3eb",
       "packetId": "0c16cae2-be2c-49be-a6ee-c964d6ff9844",
       "packetName": "Infraxys Developer Config",
-      "packetPath": "github.com\\jeroenmanders\\infraxys-environments\\master",
+      "packetPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
       "velocityName": "",
       "instanceGroups": "",
       "attributes": [
