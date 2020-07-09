@@ -5,7 +5,7 @@
     {
       "name": "Shared config for infraxys-setup",
       "id": "e6c45917-cb22-47ad-9da2-f757fead0ffa",
-      "path": "github.com\\infraxys-core\\infraxys-setup\\master"
+      "path": "github.com\\infraxys-modules\\infraxys-setup\\master"
     }
   ],
   "instances": [
