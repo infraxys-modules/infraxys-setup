@@ -16,9 +16,9 @@
   "instances": [
     {
       "id": "d7251b1b-760e-4929-bb57-056d6d84b851",
-      "packetId": "b835bb1c-2e02-4bd5-b73f-69cd3b53c5f6",
+      "packetId": "1fbb2543-98e7-45c6-8a13-83a614cb0987",
       "packetName": "Infraxys Server Config",
-      "packetPath": "github.com\\jeroenmanders\\infraxys-environments\\master",
+      "packetPath": "github.com\\infraxys-modules\\infraxys-setup\\master",
       "velocityName": "",
       "instanceGroups": "",
       "attributes": [
