@@ -104,6 +104,21 @@
               "id": "0a8bad4f-9a3b-482f-97b0-889f85b151dd",
               "name": "tags",
               "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-ext-alb\")"
+            },
+            {
+              "id": "6c2afbfb-acb1-42a2-b4c8-8a2dc42d0e6d",
+              "name": "access_log_bucket",
+              "value": "$container.getAttribute(\"access_log_bucket\")"
+            },
+            {
+              "id": "eee7c4c5-78c7-460a-9646-96a39e8718f0",
+              "name": "access_log_bucket_prefix",
+              "value": "$container.getAttribute(\"access_log_bucket_prefix\")"
+            },
+            {
+              "id": "c110d23a-cf36-4de9-acd5-c3a718199712",
+              "name": "access_log_interval",
+              "value": "$container.getAttribute(\"access_log_interval\")"
             }
           ],
           "instances": [
@@ -660,6 +675,21 @@
               "id": "0a8bad4f-9a3b-482f-97b0-889f85b151dd",
               "name": "tags",
               "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-int-alb\")"
+            },
+            {
+              "id": "6c2afbfb-acb1-42a2-b4c8-8a2dc42d0e6d",
+              "name": "access_log_bucket",
+              "value": ""
+            },
+            {
+              "id": "eee7c4c5-78c7-460a-9646-96a39e8718f0",
+              "name": "access_log_bucket_prefix",
+              "value": ""
+            },
+            {
+              "id": "c110d23a-cf36-4de9-acd5-c3a718199712",
+              "name": "access_log_interval",
+              "value": ""
             }
           ],
           "instances": [
