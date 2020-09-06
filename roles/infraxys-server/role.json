@@ -38,7 +38,7 @@
         {
           "id": "4d1e521e-5567-4295-b2ca-90be5f492016",
           "name": "state_velocity_names",
-          "value": "terraformVpcState"
+          "value": "vpc"
         },
         {
           "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
@@ -48,12 +48,37 @@
         {
           "id": "3438fffd-4d90-4196-a8ec-6a7abc5b8cd2",
           "name": "state_name",
-          "value": ""
+          "value": "$container.name"
         },
         {
           "id": "46ebe37d-4a9e-441b-aa91-affd64b297fb",
           "name": "TF_LOG",
           "value": ""
+        },
+        {
+          "id": "aa0e2705-35af-4cb8-ba5e-28d2168862ac",
+          "name": "state_aws_region",
+          "value": "$container.getAttribute(\"aws_core_s3_state_region\")"
+        },
+        {
+          "id": "88eb52c2-7dac-4181-8713-662bba6a9ebc",
+          "name": "state_encrypt_file",
+          "value": "0"
+        },
+        {
+          "id": "710a46f7-b5af-4bd3-96a9-9878756ab540",
+          "name": "state_key",
+          "value": "$container.getAttribute(\"aws_core_s3_state_folder\")/${container.name}.tfstate"
+        },
+        {
+          "id": "fa679a6a-71a6-4840-9d66-da7622ad5626",
+          "name": "state_profile",
+          "value": ""
+        },
+        {
+          "id": "90b780d0-90fd-4b3c-a930-dbb1399a881d",
+          "name": "state_s3_bucket",
+          "value": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
         }
       ],
       "instances": [
@@ -107,18 +132,23 @@
             },
             {
               "id": "6c2afbfb-acb1-42a2-b4c8-8a2dc42d0e6d",
-              "name": "access_log_bucket",
+              "name": "elb_access_log_bucket",
               "value": "$container.getAttribute(\"access_log_bucket\")"
             },
             {
               "id": "eee7c4c5-78c7-460a-9646-96a39e8718f0",
-              "name": "access_log_bucket_prefix",
+              "name": "elb_access_log_bucket_prefix",
               "value": "$container.getAttribute(\"access_log_bucket_prefix\")"
             },
             {
               "id": "c110d23a-cf36-4de9-acd5-c3a718199712",
-              "name": "access_log_interval",
+              "name": "elb_access_log_interval",
               "value": "$container.getAttribute(\"access_log_interval\")"
+            },
+            {
+              "id": "6c692ee3-2104-43a9-8999-57caaef049d7",
+              "name": "internal",
+              "value": "0"
             }
           ],
           "instances": [
@@ -349,8 +379,7 @@
                     },
                     {
                       "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
-                      "name": "ignore_changes",
-                      "value": ""
+                      "name": "ignore_changes"
                     }
                   ]
                 },
@@ -359,7 +388,6 @@
                   "packetId": "69209902-6185-4ce2-b91a-cb1d7ab5c4e2",
                   "packetName": "EC2 Instance AMI backup",
                   "packetPath": "github.com\\infraxys-aws\\aws-ec2\\master",
-                  "packetClass": "",
                   "velocityName": "",
                   "instanceGroups": "",
                   "attributes": [
@@ -438,7 +466,7 @@
                 {
                   "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
                   "name": "ignore_changes",
-                  "value": ""
+                  "value": "all"
                 }
               ]
             },
@@ -678,18 +706,23 @@
             },
             {
               "id": "6c2afbfb-acb1-42a2-b4c8-8a2dc42d0e6d",
-              "name": "access_log_bucket",
-              "value": ""
+              "name": "elb_access_log_bucket",
+              "value": "$container.getAttribute(\"access_log_bucket\")"
             },
             {
               "id": "eee7c4c5-78c7-460a-9646-96a39e8718f0",
-              "name": "access_log_bucket_prefix",
-              "value": ""
+              "name": "elb_access_log_bucket_prefix",
+              "value": "$container.getAttribute(\"access_log_bucket_prefix\")-int"
             },
             {
               "id": "c110d23a-cf36-4de9-acd5-c3a718199712",
-              "name": "access_log_interval",
-              "value": ""
+              "name": "elb_access_log_interval",
+              "value": "$container.getAttribute(\"access_log_interval\")"
+            },
+            {
+              "id": "6c692ee3-2104-43a9-8999-57caaef049d7",
+              "name": "internal",
+              "value": "1"
             }
           ],
           "instances": [
@@ -779,46 +812,6 @@
                   ]
                 }
               ]
-            }
-          ]
-        },
-        {
-          "id": "79518772-08e2-405b-b433-f992bc895760",
-          "packetId": "61654b2d-ec4c-456b-a1b4-679e57dde6f4",
-          "packetName": "Terraform S3 remote state",
-          "packetPath": "github.com\\infraxys-modules\\terraform\\master",
-          "velocityName": "",
-          "instanceGroups": "",
-          "attributes": [
-            {
-              "id": "aa0e2705-35af-4cb8-ba5e-28d2168862ac",
-              "name": "state_aws_region",
-              "value": "$container.getAttribute(\"aws_core_region\")"
-            },
-            {
-              "id": "88eb52c2-7dac-4181-8713-662bba6a9ebc",
-              "name": "state_encrypt_file",
-              "value": "1"
-            },
-            {
-              "id": "710a46f7-b5af-4bd3-96a9-9878756ab540",
-              "name": "state_key",
-              "value": "$container.getAttribute(\"aws_core_s3_state_folder\")/${container.name}.tfstate"
-            },
-            {
-              "id": "f4fa16c5-501a-41f6-9d9e-97963cfd0014",
-              "name": "state_name",
-              "value": "$container.name"
-            },
-            {
-              "id": "fa679a6a-71a6-4840-9d66-da7622ad5626",
-              "name": "state_profile",
-              "value": ""
-            },
-            {
-              "id": "90b780d0-90fd-4b3c-a930-dbb1399a881d",
-              "name": "state_s3_bucket",
-              "value": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
             }
           ]
         }
