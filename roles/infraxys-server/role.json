@@ -273,46 +273,6 @@
                   ],
                   "instances": [
                     {
-                      "id": "e201606a-5c1b-4c9b-be37-65c03387462f",
-                      "packetId": "411c805c-c962-4191-915e-a4355e181298",
-                      "packetName": "IAM Policy - AWS managed",
-                      "packetPath": "github.com\\infraxys-aws\\aws-iam\\master",
-                      "velocityName": "",
-                      "instanceGroups": "",
-                      "attributes": [
-                        {
-                          "id": "91296df8-a1f5-43a6-8790-295ce48b53e8",
-                          "name": "policy_name",
-                          "value": "ReadOnlyAccess"
-                        }
-                      ]
-                    },
-                    {
-                      "id": "98b73d77-bf43-4efc-a432-1475d1fd19d8",
-                      "packetId": "f9e5009a-2a78-452a-9792-712b7b0de532",
-                      "packetName": "IAM Policy",
-                      "packetPath": "github.com\\infraxys-aws\\aws-iam\\master",
-                      "velocityName": "",
-                      "instanceGroups": "",
-                      "attributes": [
-                        {
-                          "id": "02282110-5390-4fca-8a55-7204c9815282",
-                          "name": "description",
-                          "value": "Policy for the Infraxys instance"
-                        },
-                        {
-                          "id": "655ea17b-deb5-4870-a9d1-6be9bd710182",
-                          "name": "policy",
-                          "value": "{\n   \"Version\": \"2012-10-17\",\n   \"Statement\" : [\n      {\n        \"Action\": [\n          \"ec2:StartInstances\",\n          \"ec2:StopInstances\",\n          \"ec2:TerminateInstances\",\n          \"ec2:AttachVolume\",\n          \"ec2:DetachVolume\",\n          \"ec2:DeleteVolume\"\n        ],\n        \"Effect\": \"Allow\",\n        \"Resource\": \"*\"\n      }\n    ]\n}"
-                        },
-                        {
-                          "id": "f2d03152-abef-4217-ba75-8a3c5132ddad",
-                          "name": "policy_name",
-                          "value": "${container.name}-infraxys-policy"
-                        }
-                      ]
-                    },
-                    {
                       "id": "52c151cb-65e5-43e8-adcf-01632c688f89",
                       "packetId": "f9e5009a-2a78-452a-9792-712b7b0de532",
                       "packetName": "IAM Policy",
@@ -328,12 +288,12 @@
                         {
                           "id": "655ea17b-deb5-4870-a9d1-6be9bd710182",
                           "name": "policy",
-                          "value": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"s3:ListBucket\"\n            ],\n            \"Resource\": [\n                \"arn:aws:s3:::$container.getAttribute(\"aws_core_s3_state_bucket\")\"\n            ]\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"s3:PutObject\",\n                \"s3:GetObject\",\n                \"s3:DeleteObject\"\n            ],\n            \"Resource\": [\n                \"arn:aws:s3:::$container.getAttribute(\"aws_core_s3_state_bucket\")/*\"\n            ]\n        }\n    ]\n}"
+                          "value": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ses:SendEmail\",\n                \"ses:SendRawEmail\"\n            ],\n            \"Resource\": [\n                \"arn:aws:ses:us-east-1:739267361879:identity/mckinsey-solutions.com\"\n            ]\n        }\n      ]\n    }\n"
                         },
                         {
                           "id": "f2d03152-abef-4217-ba75-8a3c5132ddad",
                           "name": "policy_name",
-                          "value": "${container.name}-infraxys-tf-state-policy"
+                          "value": "${container.name}-infraxys-ses-policy"
                         }
                       ]
                     }
@@ -379,7 +339,8 @@
                     },
                     {
                       "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
-                      "name": "ignore_changes"
+                      "name": "ignore_changes",
+                      "value": ""
                     }
                   ]
                 },
