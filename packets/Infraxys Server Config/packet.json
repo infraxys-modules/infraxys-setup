@@ -169,6 +169,28 @@
       "tooltip": "",
       "scope": "Container",
       "defaultValue": "60"
+    },
+    {
+      "id": "f993f18b-e94f-4cdc-9acf-492a9c3414ac",
+      "name": "ext_alb_extra_security_group_ids",
+      "caption": "Extra ext ALB SG IDs",
+      "type": "java.lang.String",
+      "formColumn": 2,
+      "formOrder": 2600,
+      "visibility": "ALWAYS VISIBLE",
+      "writability": "ALWAYS",
+      "required": false,
+      "isPartOfKey": false,
+      "listOfValues": "",
+      "referenceFilter": "",
+      "referenceValueAttributeName": "",
+      "referenceChildIdFilter": "",
+      "newItemsAllowed": false,
+      "parseWithVelocity": false,
+      "inputPrompt": "",
+      "tooltip": "\u003cp\u003eEnter a comma-separated list of security group IDs.\u003c/p\u003e",
+      "scope": "Instance",
+      "defaultValue": ""
     }
   ],
   "files": [],

@@ -64,6 +64,11 @@
           "id": "d659aa1c-35d9-4123-b50d-7c2b86d35c6f",
           "name": "aws_core_vault_config_variable",
           "value": ""
+        },
+        {
+          "id": "bde8136b-5ccf-4a13-9ef0-3c8dfb4eef0d",
+          "name": "cloud_provider",
+          "value": "AWS"
         }
       ],
       "instances": [

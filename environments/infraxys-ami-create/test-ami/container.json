@@ -41,6 +41,26 @@
           "id": "0bd9a499-83fc-4423-ac23-e5022967f16d",
           "name": "infraxys_ssl_certificate_arn",
           "value": "arn:aws:acm:eu-west-1:525113970320:certificate/58a7439e-e440-457b-aee7-ba8a5bbc7f87"
+        },
+        {
+          "id": "bde0eb40-8409-4bf9-b036-7ef7cf279b37",
+          "name": "access_log_bucket",
+          "value": ""
+        },
+        {
+          "id": "235f0e44-c802-4ac0-8297-e553d150f956",
+          "name": "access_log_bucket_prefix",
+          "value": ""
+        },
+        {
+          "id": "8a70590e-372e-4d86-94b3-71211e06be72",
+          "name": "access_log_interval",
+          "value": ""
+        },
+        {
+          "id": "f993f18b-e94f-4cdc-9acf-492a9c3414ac",
+          "name": "ext_alb_extra_security_group_ids",
+          "value": ""
         }
       ]
     }

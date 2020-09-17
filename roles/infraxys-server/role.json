@@ -63,7 +63,7 @@
         {
           "id": "88eb52c2-7dac-4181-8713-662bba6a9ebc",
           "name": "state_encrypt_file",
-          "value": "0"
+          "value": "1"
         },
         {
           "id": "710a46f7-b5af-4bd3-96a9-9878756ab540",
@@ -118,7 +118,7 @@
             {
               "id": "f10d2c9b-f057-48ce-b9d6-fc5ea303fa5f",
               "name": "load_balancer_security_group_ids",
-              "value": "[aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id,\"sg-033cdc1bd6ae71b7f\",\"sg-0ec08f5d417f1d821\",\"sg-0093f3c3c510d8ebe\",\"sg-0e2d1d8edb03722fb\"]"
+              "value": "[aws_security_group.${infraxysExtElbSg.getAttribute(\"security_group_name\")}.id#if ($container.getAttribute(\"ext_alb_extra_security_group_ids\") !\u003d \"\"),$container.getAttribute(\"ext_alb_extra_security_group_ids\")#end]"
             },
             {
               "id": "2d359016-acf9-47ce-8c82-2d1873d775d7",
