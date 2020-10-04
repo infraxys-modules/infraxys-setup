@@ -1,0 +1,322 @@
+{
+  "version": "1.0",
+  "id": "3d9bad8f-2968-4dae-bd5a-aeb6e7ae9c63",
+  "instances": [
+    {
+      "id": "e1126eee-0105-44b8-ac9f-ac837f3a7ba4",
+      "packetId": "c11f5f24-b10c-489a-8ca2-a953b2acfc63",
+      "packetName": "Terraform AWS runner",
+      "packetPath": "github.com\\infraxys-modules\\terraform\\master",
+      "velocityName": "",
+      "instanceGroups": "",
+      "attributes": [
+        {
+          "id": "13ac5f10-a272-42fa-9da3-b5aab7b21c9a",
+          "name": "aws_provider_version",
+          "value": "2.63.0"
+        },
+        {
+          "id": "5d847331-e33c-4c11-888d-115564d96d22",
+          "name": "aws_region",
+          "value": "$container.getAttribute(\"aws_core_region\")"
+        },
+        {
+          "id": "7f34b229-aacb-4532-89e5-e104fead83b2",
+          "name": "extra_terraform",
+          "value": ""
+        },
+        {
+          "id": "7ee45dcf-ee9b-433c-b046-5ac178df1804",
+          "name": "instance_label",
+          "value": "Infraxys - Terraform"
+        },
+        {
+          "id": "3bf254f1-3235-4471-ac8a-d11a0a691a34",
+          "name": "skip_terraform_action_creation",
+          "value": "1"
+        },
+        {
+          "id": "4d1e521e-5567-4295-b2ca-90be5f492016",
+          "name": "state_velocity_names",
+          "value": "vpc"
+        },
+        {
+          "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
+          "name": "terraform_version",
+          "value": "0.12.26"
+        },
+        {
+          "id": "3438fffd-4d90-4196-a8ec-6a7abc5b8cd2",
+          "name": "state_name",
+          "value": "$container.name"
+        },
+        {
+          "id": "46ebe37d-4a9e-441b-aa91-affd64b297fb",
+          "name": "TF_LOG",
+          "value": ""
+        },
+        {
+          "id": "aa0e2705-35af-4cb8-ba5e-28d2168862ac",
+          "name": "state_aws_region",
+          "value": "$container.getAttribute(\"aws_core_s3_state_region\")"
+        },
+        {
+          "id": "88eb52c2-7dac-4181-8713-662bba6a9ebc",
+          "name": "state_encrypt_file",
+          "value": "1"
+        },
+        {
+          "id": "710a46f7-b5af-4bd3-96a9-9878756ab540",
+          "name": "state_key",
+          "value": "$container.getAttribute(\"aws_core_s3_state_folder\")/${container.name}.tfstate"
+        },
+        {
+          "id": "fa679a6a-71a6-4840-9d66-da7622ad5626",
+          "name": "state_profile",
+          "value": ""
+        },
+        {
+          "id": "90b780d0-90fd-4b3c-a930-dbb1399a881d",
+          "name": "state_s3_bucket",
+          "value": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
+        }
+      ],
+      "instances": [
+        {
+          "id": "7f4962fa-db50-4b0b-b0c7-cd773ac2fc07",
+          "packetId": "1da305b2-7075-4ed9-a82a-229a03f8799e",
+          "packetName": "EC2 Instance",
+          "packetPath": "github.com\\infraxys-aws\\aws-ec2\\master",
+          "velocityName": "infraxysInstance",
+          "instanceGroups": "",
+          "attributes": [
+            {
+              "id": "aefd5bb2-c68b-4a30-87e9-78bad933dfcb",
+              "name": "associate_public_ip_address",
+              "value": "1"
+            },
+            {
+              "id": "4b190392-aaf2-4578-b4fd-2a9cb96af6f8",
+              "name": "image_id",
+              "value": "infraxys/images/infraxys-2.0.*-server-*"
+            },
+            {
+              "id": "5c1ee9bc-89da-4aa8-9582-7ac4912df968",
+              "name": "image_owners",
+              "value": "525113970320"
+            },
+            {
+              "id": "293cf5fd-18ee-483b-9fff-d8ba4601a9ad",
+              "name": "instance_name",
+              "value": "${container.name}-infraxys"
+            },
+            {
+              "id": "a2cfc90d-d88e-4596-aff7-173e6f488424",
+              "name": "instance_subnet_id",
+              "value": "data.terraform_remote_state.vpc.outputs.public_subnets[0]"
+            },
+            {
+              "id": "03b485bd-d44c-40b0-b66f-a41f7e50547f",
+              "name": "instance_tags",
+              "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", ${instance.getAttribute(\"instance_name\")})"
+            },
+            {
+              "id": "ba6bc063-e2dd-438c-ace6-12cad2df72bc",
+              "name": "instance_type",
+              "value": "m5.large"
+            },
+            {
+              "id": "177d61b4-ece8-42a5-963e-17f9a38e7e83",
+              "name": "key_pair_name",
+              "value": "$container.getAttribute(\"infraxys_key_pair_name\")"
+            },
+            {
+              "id": "e08b69ec-3c70-4c42-91a7-7e5a9837f96b",
+              "name": "prevent_destroy",
+              "value": "0"
+            },
+            {
+              "id": "a41a4b3c-6322-4ce9-b047-75fd39e0b39e",
+              "name": "private_key_file",
+              "value": "/root/.ssh/keys/${instance.getAttribute(\"key_pair_name\").replaceAll(\"-\", \"_\")}.pem"
+            },
+            {
+              "id": "88c4470e-9c57-418d-b4f6-a3f2c8e785f1",
+              "name": "root_block_device_del_on_term",
+              "value": "1"
+            },
+            {
+              "id": "74a4fe81-f42b-4fb0-b848-48f9dcff1d31",
+              "name": "root_block_device_size",
+              "value": "100"
+            },
+            {
+              "id": "0cbfa7d1-2f04-4302-a268-32e416f34e43",
+              "name": "root_block_device_type",
+              "value": "gp2"
+            },
+            {
+              "id": "21cc4e98-2cb7-4efd-a16b-822d8412fd84",
+              "name": "ssh_connect_username",
+              "value": "ubuntu"
+            },
+            {
+              "id": "a0a8eb3b-e34f-4f11-bc12-77d06a13fee1",
+              "name": "user_data_script",
+              "value": "#!/bin/bash\n\necho \"Starting Infraxys user-data script.\";\nsudo touch /var/log/user_data.log;\nsudo chown ubuntu /var/log/user_data.log;\ncd /opt/infraxys/user_data;\n./setup.sh 2\u003e\u00261 | tee /var/log/user_data.log;"
+            },
+            {
+              "id": "eb56a14b-d02a-4c3b-b1e3-fe670955b39e",
+              "name": "vpc_velocity_name",
+              "value": "vpc"
+            },
+            {
+              "id": "e4992d45-5b6b-4c68-9015-7add6aea82a6",
+              "name": "disable_api_termination",
+              "value": "0"
+            }
+          ],
+          "instances": [
+            {
+              "id": "d4055f82-67ea-4c96-9a06-fb05d22c72e8",
+              "packetId": "76657ba8-7a80-4e22-95bb-6b22b1a8325f",
+              "packetName": "IAM Role",
+              "packetPath": "github.com\\infraxys-aws\\aws-iam\\master",
+              "velocityName": "",
+              "instanceGroups": "",
+              "attributes": [
+                {
+                  "id": "8f606848-71a2-43fd-a30b-2f8c2e9e56dc",
+                  "name": "description",
+                  "value": "Infraxys instance profile role"
+                },
+                {
+                  "id": "b06dd115-d564-4325-adf0-6c435117fe1b",
+                  "name": "iam_role_name",
+                  "value": "${container.name}-infraxys-role"
+                },
+                {
+                  "id": "f161948a-6ce6-4224-9a47-d2d69ddaa422",
+                  "name": "use_for_instance_profile",
+                  "value": "1"
+                }
+              ],
+              "instances": [
+                {
+                  "id": "aec05543-43c4-4ee4-bb40-b60d26cd76d0",
+                  "packetId": "f9e5009a-2a78-452a-9792-712b7b0de532",
+                  "packetName": "IAM Policy",
+                  "packetPath": "github.com\\infraxys-aws\\aws-iam\\master",
+                  "velocityName": "",
+                  "instanceGroups": "",
+                  "attributes": [
+                    {
+                      "id": "02282110-5390-4fca-8a55-7204c9815282",
+                      "name": "description",
+                      "value": "Policy for the Infraxys instance so it can read-write Terraform state"
+                    },
+                    {
+                      "id": "655ea17b-deb5-4870-a9d1-6be9bd710182",
+                      "name": "policy",
+                      "value": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ses:SendEmail\",\n                \"ses:SendRawEmail\"\n            ],\n            \"Resource\": [\n                \"arn:aws:ses:us-east-1:739267361879:identity/mckinsey-solutions.com\"\n            ]\n        }\n      ]\n    }\n"
+                    },
+                    {
+                      "id": "f2d03152-abef-4217-ba75-8a3c5132ddad",
+                      "name": "policy_name",
+                      "value": "${container.name}-infraxys-ses-policy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "b2df3804-d8a6-49d8-adc8-27e66d7b9de4",
+              "packetId": "07aaa698-bd1c-453f-aad1-eecec4321432",
+              "packetName": "Security group",
+              "packetPath": "github.com\\infraxys-aws\\aws-ec2\\master",
+              "velocityName": "infraxysSg",
+              "instanceGroups": "",
+              "attributes": [
+                {
+                  "id": "8233fa49-238b-49c0-8135-0f1b2c876878",
+                  "name": "description",
+                  "value": "Security group for the Infraxys instance"
+                },
+                {
+                  "id": "22e4731e-5047-45bf-945f-48e6aea36be0",
+                  "name": "egress_rules",
+                  "value": "#outbound internet access\negress {\n    from_port   \u003d 0\n    to_port     \u003d 0\n    protocol    \u003d \"-1\"\n    cidr_blocks \u003d [\"0.0.0.0/0\"]\n}"
+                },
+                {
+                  "id": "b9e43f2d-442c-42e6-8ec3-e8a7fce2c750",
+                  "name": "extra_terraform",
+                  "value": ""
+                },
+                {
+                  "id": "ba9a9e6a-f638-4e8a-bc7a-2f3d73f77fd8",
+                  "name": "ingress_rules",
+                  "value": " ingress {\n    protocol    \u003d \"tcp\"\n    from_port   \u003d 22\n    to_port     \u003d 22\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_bastion_ssh_cidr_blocks\")\n]\n  }\n ingress {\n    protocol    \u003d \"tcp\"\n    from_port   \u003d 8443\n    to_port     \u003d 8443\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_bastion_ssh_cidr_blocks\")\n]\n  }\n ingress {\n    protocol    \u003d \"tcp\"\n    from_port   \u003d 8082\n    to_port     \u003d 8082\n    cidr_blocks \u003d [\n$container.getAttribute(\"aws_vpc_bastion_ssh_cidr_blocks\")\n]\n  }\n"
+                },
+                {
+                  "id": "75be56db-e3e9-4db7-b127-91884a1e4c22",
+                  "name": "security_group_name",
+                  "value": "${container.name}-infraxys-sg"
+                },
+                {
+                  "id": "1e5ff34c-6da0-43dd-bacb-fa688a4e0c6c",
+                  "name": "tags",
+                  "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-sg\")"
+                },
+                {
+                  "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
+                  "name": "ignore_changes",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "id": "bde7ced9-190a-43ea-a98b-c7880bf835f7",
+              "packetId": "69209902-6185-4ce2-b91a-cb1d7ab5c4e2",
+              "packetName": "EC2 Instance AMI backup",
+              "packetPath": "github.com\\infraxys-aws\\aws-ec2\\master",
+              "velocityName": "",
+              "instanceGroups": "",
+              "attributes": [
+                {
+                  "id": "d2765754-6da4-4008-b3b0-5ea09ea747f7",
+                  "name": "name_prefix",
+                  "value": "api-server-daily-backup"
+                },
+                {
+                  "id": "8dc18823-4f40-42be-bcef-09f6daa5aa65",
+                  "name": "instance_name",
+                  "value": "$instance.parent.getAttribute(\"instance_name\")"
+                },
+                {
+                  "id": "221d4431-5759-4d9f-bc41-11cf64de51b8",
+                  "name": "retention",
+                  "value": "7"
+                },
+                {
+                  "id": "e9f64ffd-735b-404b-a677-78c44fc6708a",
+                  "name": "vpc_velocity_name",
+                  "value": "$instance.parent.getAttribute(\"vpc_velocity_name\")"
+                },
+                {
+                  "id": "fc96e356-832c-4c90-8938-66b61fdd845d",
+                  "name": "description",
+                  "value": "Dail API-server backup"
+                },
+                {
+                  "id": "5418bfc4-7180-4510-bb02-de99b1af64a7",
+                  "name": "aws_region",
+                  "value": "$container.getAttribute(\"aws_core_region\")"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

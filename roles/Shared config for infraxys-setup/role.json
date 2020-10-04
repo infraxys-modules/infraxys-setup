@@ -7,7 +7,6 @@
       "packetId": "954e1c27-df9f-4796-8b6b-a422aba7dd81",
       "packetName": "AWS core terraform bucket",
       "packetPath": "github.com\\infraxys-aws\\aws-commons\\master",
-      "velocityName": "tfStateBucket",
       "instanceGroups": "",
       "attributes": [
         {

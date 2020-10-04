@@ -55,7 +55,17 @@
         {
           "id": "2779001c-58aa-4288-873b-fb65f77784d8",
           "name": "vault_config_variable",
-          "value": ""
+          "value": "a"
+        },
+        {
+          "id": "986d252f-94c4-4889-92b7-65a27e37f46f",
+          "name": "git_config_variable",
+          "value": "b"
+        },
+        {
+          "id": "9689cefb-4039-46f3-b622-f12d3e281343",
+          "name": "cloud_provider",
+          "value": "AWS"
         }
       ],
       "instances": [
@@ -174,7 +184,7 @@
                   "packetId": "752cc4d0-3a7e-4edd-b979-33d37cb4ca24",
                   "packetName": "Packer AWS Infraxys",
                   "packetPath": "github.com\\infraxys-aws\\aws-packer-infraxys\\infraxys-1.4",
-                  "velocityName": "awsAMIInfraxys",
+                  "velocityName": "",
                   "instanceGroups": "",
                   "attributes": [
                     {
@@ -235,7 +245,7 @@
                     {
                       "id": "dc6654c2-4abf-4802-a1e0-0089eecf3ddb",
                       "name": "tomcat_version",
-                      "value": "2.0.473"
+                      "value": "3.0.21"
                     },
                     {
                       "id": "481609c2-aefe-44ad-aea3-cb66a74e8c02",
@@ -274,7 +284,7 @@
                   "packetId": "752cc4d0-3a7e-4edd-b979-33d37cb4ca24",
                   "packetName": "Packer AWS Infraxys",
                   "packetPath": "github.com\\infraxys-aws\\aws-packer-infraxys\\infraxys-1.4",
-                  "velocityName": "awsAMIInfraxys",
+                  "velocityName": "",
                   "instanceGroups": "",
                   "attributes": [
                     {
@@ -391,7 +401,7 @@
         {
           "id": "5d847331-e33c-4c11-888d-115564d96d22",
           "name": "aws_region",
-          "value": "$terraformVpcState.getAttribute(\"aws_region\")"
+          "value": "$vpc.getAttribute(\"aws_region\")"
         },
         {
           "id": "7f34b229-aacb-4532-89e5-e104fead83b2",
@@ -411,7 +421,7 @@
         {
           "id": "4d1e521e-5567-4295-b2ca-90be5f492016",
           "name": "state_velocity_names",
-          "value": "terraformVpcState"
+          "value": "vpc"
         },
         {
           "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
@@ -427,6 +437,31 @@
           "id": "46ebe37d-4a9e-441b-aa91-affd64b297fb",
           "name": "TF_LOG",
           "value": ""
+        },
+        {
+          "id": "aa0e2705-35af-4cb8-ba5e-28d2168862ac",
+          "name": "state_aws_region",
+          "value": "$container.getAttribute(\"aws_core_s3_state_region\")"
+        },
+        {
+          "id": "88eb52c2-7dac-4181-8713-662bba6a9ebc",
+          "name": "state_encrypt_file",
+          "value": "0"
+        },
+        {
+          "id": "710a46f7-b5af-4bd3-96a9-9878756ab540",
+          "name": "state_key",
+          "value": "$container.getAttribute(\"aws_core_s3_state_folder\")/packer.tfstate"
+        },
+        {
+          "id": "fa679a6a-71a6-4840-9d66-da7622ad5626",
+          "name": "state_profile",
+          "value": ""
+        },
+        {
+          "id": "90b780d0-90fd-4b3c-a930-dbb1399a881d",
+          "name": "state_s3_bucket",
+          "value": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
         }
       ],
       "instances": [

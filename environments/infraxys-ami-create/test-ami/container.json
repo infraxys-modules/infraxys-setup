@@ -3,13 +3,13 @@
   "id": "0463fce0-5ce5-4173-85d5-b208ed1423ed",
   "roles": [
     {
-      "name": "infraxys-server",
-      "id": "fa6259d8-af9d-4417-90cb-440ddccd6c3b",
+      "name": "Shared config for infraxys-setup",
+      "id": "e6c45917-cb22-47ad-9da2-f757fead0ffa",
       "path": "github.com\\infraxys-modules\\infraxys-setup\\master"
     },
     {
-      "name": "Shared config for infraxys-setup",
-      "id": "e6c45917-cb22-47ad-9da2-f757fead0ffa",
+      "name": "infraxys-server-ext-alb-only",
+      "id": "cd12fdf5-7a2d-462c-9341-ad9e994b30cf",
       "path": "github.com\\infraxys-modules\\infraxys-setup\\master"
     }
   ],

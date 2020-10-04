@@ -38,12 +38,47 @@
         {
           "id": "4d1e521e-5567-4295-b2ca-90be5f492016",
           "name": "state_velocity_names",
-          "value": "terraformVpcState"
+          "value": "vpc"
         },
         {
           "id": "f48b2125-e20f-40dc-84df-98f3681931c8",
           "name": "terraform_version",
           "value": "0.12.12"
+        },
+        {
+          "id": "3438fffd-4d90-4196-a8ec-6a7abc5b8cd2",
+          "name": "state_name",
+          "value": ""
+        },
+        {
+          "id": "46ebe37d-4a9e-441b-aa91-affd64b297fb",
+          "name": "TF_LOG",
+          "value": ""
+        },
+        {
+          "id": "aa0e2705-35af-4cb8-ba5e-28d2168862ac",
+          "name": "state_aws_region",
+          "value": "$container.getAttribute(\"aws_core_s3_state_region\")"
+        },
+        {
+          "id": "88eb52c2-7dac-4181-8713-662bba6a9ebc",
+          "name": "state_encrypt_file",
+          "value": "1"
+        },
+        {
+          "id": "710a46f7-b5af-4bd3-96a9-9878756ab540",
+          "name": "state_key",
+          "value": "$container.getAttribute(\"aws_core_s3_state_folder\")/test-developer.tfstate"
+        },
+        {
+          "id": "fa679a6a-71a6-4840-9d66-da7622ad5626",
+          "name": "state_profile",
+          "value": ""
+        },
+        {
+          "id": "90b780d0-90fd-4b3c-a930-dbb1399a881d",
+          "name": "state_s3_bucket",
+          "value": "$container.getAttribute(\"aws_core_s3_state_bucket\")"
         }
       ],
       "instances": [
@@ -134,6 +169,11 @@
               "id": "eb56a14b-d02a-4c3b-b1e3-fe670955b39e",
               "name": "vpc_velocity_name",
               "value": "vpc"
+            },
+            {
+              "id": "e4992d45-5b6b-4c68-9015-7add6aea82a6",
+              "name": "disable_api_termination",
+              "value": ""
             }
           ],
           "instances": [
@@ -174,6 +214,11 @@
                   "id": "1e5ff34c-6da0-43dd-bacb-fa688a4e0c6c",
                   "name": "tags",
                   "value": "$container.getAttribute(\"aws_core_tag_list\").replaceAll(\"\u003cname\u003e\", \"${container.name}-infraxys-developer-sg\")"
+                },
+                {
+                  "id": "ebcbc7fd-d4b0-4b04-bf16-afc18d698cca",
+                  "name": "ignore_changes",
+                  "value": ""
                 }
               ],
               "instances": [
